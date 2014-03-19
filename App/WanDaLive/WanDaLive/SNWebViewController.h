@@ -15,4 +15,5 @@
 @property (nonatomic,strong) NSString* url;
 
 - (IBAction)closeView:(id)sender;
+
 @end
