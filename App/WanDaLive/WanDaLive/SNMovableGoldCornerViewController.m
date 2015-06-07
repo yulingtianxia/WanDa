@@ -21,7 +21,7 @@
 @synthesize page;
 @synthesize imageScrollView;
 @synthesize timeCount;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -133,7 +133,7 @@
 - (void)request:(SNRequest *)request didLoad:(id)result
 {
     if (self.movableRequest == request) {
-        NSString * title = [result objectForKey:@"title"];
+        NSString * title = result[@"title"];
         if([title isEqualToString:@"nothing"])
         {
             self.cornerTip.text = @"您啥都没有摇到。";

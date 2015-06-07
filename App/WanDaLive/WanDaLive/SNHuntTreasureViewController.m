@@ -24,7 +24,7 @@
 @synthesize grayLogo1,grayLogo2,grayLogo3,grayLogo4,grayLogo5;
 @synthesize timeCount;
 @synthesize HintLabel;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -159,7 +159,7 @@
     NSMutableArray* arr = [shops objectForKey:@"shops"];
     NSMutableArray* newarr = [NSMutableArray arrayWithCapacity:arr.count];
     for (int i = 0;i<arr.count; i++) {
-        SNShops *shop = [NSKeyedUnarchiver unarchiveObjectWithData:[arr objectAtIndex:i]];
+        SNShops *shop = [NSKeyedUnarchiver unarchiveObjectWithData:arr[i]];
         [newarr addObject:shop];
     }
     return newarr;
@@ -201,8 +201,8 @@
 - (void)request:(SNRequest *)request didLoad:(id)result //TODOS
 {
     if(result!=NULL&&request == HuntTreasureRequest){
-        if ([result objectForKey:@"outcome"]!=[NSNull null]) {
-            NSString * outcome = [NSString stringWithString:[result objectForKey:@"outcome"]] ;
+        if (result[@"outcome"]!=[NSNull null]) {
+            NSString * outcome = [NSString stringWithString:result[@"outcome"]] ;
             if ([outcome isEqualToString:@"have already accomplished"]) {
                 //该店铺之前已经完成
                 NSLog(@"have already accomplished");
@@ -224,19 +224,19 @@
         NSMutableArray* arr = [NSMutableArray arrayWithCapacity:arrdata.count];
         NSMutableArray* newarrdata = [NSMutableArray arrayWithCapacity:arrdata.count];
         for (int i = 0;i<arrdata.count; i++) {
-            SNShops *shop = [NSKeyedUnarchiver unarchiveObjectWithData:[arrdata objectAtIndex:i]];
+            SNShops *shop = [NSKeyedUnarchiver unarchiveObjectWithData:arrdata[i]];
             [arr addObject:shop];
         }
         NSArray * array = (NSArray*)result;
         for (int i=0; i<arr.count; i++) {
             for (int j=0; j<array.count; j++) {
-                if ([((SNShops*)[arr objectAtIndex:i]).sid isEqualToString:[array objectAtIndex:j]]) {
-                    ((SNShops*)[arr objectAtIndex:i]).IsCompleted=@"YES";
+                if ([((SNShops*)arr[i]).sid isEqualToString:array[j]]) {
+                    ((SNShops*)arr[i]).IsCompleted=@"YES";
                     break;
                 }
                 
             }
-            [newarrdata addObject:[NSKeyedArchiver archivedDataWithRootObject:(SNShops*)[arr objectAtIndex:i]]];
+            [newarrdata addObject:[NSKeyedArchiver archivedDataWithRootObject:(SNShops*)arr[i]]];
         }
         
         [shops setObject:newarrdata forKey:@"shops"];//将更新完成状态后的shop存入

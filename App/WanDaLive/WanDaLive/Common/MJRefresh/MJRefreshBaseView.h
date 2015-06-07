@@ -15,16 +15,16 @@
 // view的高度
 #define kViewHeight 65.0
 
-typedef enum {
+typedef NS_ENUM(unsigned int, RefreshState) {
 	RefreshStatePulling = 1,
 	RefreshStateNormal = 2,
 	RefreshStateRefreshing = 3
-} RefreshState;
+};
 
-typedef enum {
+typedef NS_ENUM(int, RefreshViewType) {
     RefreshViewTypeHeader = -1,
     RefreshViewTypeFooter = 1
-} RefreshViewType;
+};
 
 @class MJRefreshBaseView;
 
@@ -62,7 +62,7 @@ typedef void (^BeginRefreshingBlock)(MJRefreshBaseView *refreshView);
 }
 
 // 构造方法
-- (id)initWithScrollView:(UIScrollView *)scrollView;
+- (instancetype)initWithScrollView:(UIScrollView *)scrollView NS_DESIGNATED_INITIALIZER;
 
 // 内部的控件
 @property (nonatomic, weak, readonly) UILabel *lastUpdateTimeLabel;

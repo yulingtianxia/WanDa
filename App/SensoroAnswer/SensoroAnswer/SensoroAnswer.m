@@ -628,7 +628,7 @@ double calculateAccuracy(int txPower, double rssi) {
                 NSLog(@"min ble distance %f ibeacon distance : %f",minBle,min);
             }
             
-            if ([trigger.triggerSensores objectForKey:key]) {
+            if ((trigger.triggerSensores)[key]) {
                 if ((min > 0 && min != INVALID_DISTANCE &&
                     min < trigger.stayDistLimit) ||
                     (minBle > 0 && minBle != INVALID_DISTANCE &&
@@ -700,7 +700,7 @@ double calculateAccuracy(int txPower, double rssi) {
     for (CLBeacon * iter in beacons) {
         key = [NSString stringWithFormat:@"%@-%@-%@",
                [iter.proximityUUID UUIDString],iter.major,iter.minor];
-        SNSensor * sensor = [self.foundSensores objectForKey:key];
+        SNSensor * sensor = (self.foundSensores)[key];
         
         if (sensor == nil) {
             
@@ -710,7 +710,7 @@ double calculateAccuracy(int txPower, double rssi) {
             }
             sensor = [SNSensor getInstanceFrom:iter];
             
-            [self.foundSensores setObject:sensor forKey:key];
+            (self.foundSensores)[key] = sensor;
             
             [newFound addObject:sensor];
         }else{
@@ -752,7 +752,7 @@ double calculateAccuracy(int txPower, double rssi) {
     NSArray * array = self.bleFoundBeacons.allValues;
     for (SNBeacon * iter in array) {
         key = iter.key;
-        SNSensor * sensor = [self.foundSensores objectForKey:key];
+        SNSensor * sensor = (self.foundSensores)[key];
         
         if (sensor == nil) {
             
@@ -762,7 +762,7 @@ double calculateAccuracy(int txPower, double rssi) {
             }
             sensor = [SNSensor getInstanceFromBleBeacon:iter];
             
-            [self.foundSensores setObject:sensor forKey:key];
+            (self.foundSensores)[key] = sensor;
             
             [newFound addObject:sensor];
         }else{
@@ -886,7 +886,7 @@ double calculateAccuracy(int txPower, double rssi) {
 {
 //    NSString* txPower = [advertisementData objectForKey:CBAdvertisementDataTxPowerLevelKey];
 //    
-    NSData * data = [advertisementData objectForKey:CBAdvertisementDataManufacturerDataKey];
+    NSData * data = advertisementData[CBAdvertisementDataManufacturerDataKey];
     if (data != nil) {
         
         SNBeacon * beacon = [SNBeacon getInstanceFromData:data rssi:RSSI.integerValue];
@@ -896,7 +896,7 @@ double calculateAccuracy(int txPower, double rssi) {
         if (beacon != nil) {
             NSString * key = [beacon key];
             
-            SNBeacon * exist = [self.bleFoundBeacons objectForKey:key];
+            SNBeacon * exist = (self.bleFoundBeacons)[key];
             if (exist != nil) {
                 //添加一个新的
                 [exist pushRSSI:RSSI.integerValue];
@@ -907,7 +907,7 @@ double calculateAccuracy(int txPower, double rssi) {
                 }
             }else{
                 //添加新的beacon
-                [self.bleFoundBeacons setObject:beacon forKey:key];
+                (self.bleFoundBeacons)[key] = beacon;
                 
                 NSLog(@"find a beacon by ble %@ at %f",key,beacon.accuracy);
                 exist = beacon;
@@ -956,7 +956,7 @@ double calculateAccuracy(int txPower, double rssi) {
     for (SNBeacon* beacon in didDisappear) {
         [self.bleFoundBeacons removeObjectForKey:beacon.key];
         
-        SNSensor * sensor = [self.foundSensores objectForKey:beacon.key];
+        SNSensor * sensor = (self.foundSensores)[beacon.key];
         if (sensor != nil) {
             [sensor clearBleDistance];
         }

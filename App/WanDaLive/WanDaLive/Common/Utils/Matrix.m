@@ -30,7 +30,7 @@
 @implementation Matrix
 @synthesize max;
 
-- (id)initWithMaxX:(size_t)x MaxY:(size_t)y {
+- (instancetype)initWithMaxX:(size_t)x MaxY:(size_t)y {
 	if (self = [super init]) {
 		data = (char *) malloc(x * y);
 		max = MySizeMake(x, y);
@@ -39,7 +39,7 @@
 	return self;
 }
 
-- (id)initWithMax:(MySize) maxCoords {
+- (instancetype)initWithMax:(MySize) maxCoords {
 	return [self initWithMaxX:maxCoords.x MaxY:maxCoords.y];
 }
 

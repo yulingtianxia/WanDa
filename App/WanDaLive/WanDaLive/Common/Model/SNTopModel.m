@@ -24,7 +24,7 @@
     
     NSNull * null = [NSNull null];
     
-    id temp = [dict objectForKey:CREDITS_KEY];
+    id temp = dict[CREDITS_KEY];
     
     if (temp != nil && temp != null) {
         userInfo.credits = [temp doubleValue];
@@ -37,7 +37,7 @@
 #pragma mark SNShops
 
 @implementation SNShops
-- (id) initWithCoder: (NSCoder *)coder
+- (instancetype) initWithCoder: (NSCoder *)coder
 {
     if (self = [super init])
     {
@@ -71,13 +71,13 @@
     for( NSString *sid in dict.allKeys){
         SNShops *shop = [[SNShops alloc]init];
         shop.sid=sid;
-        NSDictionary *temp = [dict objectForKey: sid];
+        NSDictionary *temp = dict[sid];
         if(temp != nil && temp != null){
-            shop.name = [temp objectForKey:NAME_KEY];
-            shop.logo = [URLManager imageUrl:[temp objectForKey:LOGO_KEY]];
-            shop.address = [temp objectForKey:ADDRESS_KEY];
-            shop.beacons = [temp objectForKey:BEACONS_KEY];
-            shop.time = [temp objectForKey:TIME_KEY];
+            shop.name = temp[NAME_KEY];
+            shop.logo = [URLManager imageUrl:temp[LOGO_KEY]];
+            shop.address = temp[ADDRESS_KEY];
+            shop.beacons = temp[BEACONS_KEY];
+            shop.time = temp[TIME_KEY];
             shop.IsCompleted = @"NO";
         }
         NSData *shopData = [NSKeyedArchiver archivedDataWithRootObject:shop];
@@ -99,7 +99,7 @@
     SNCoupons *coupons = [[SNCoupons alloc] init];
     NSNull * null = [NSNull null];
     for( NSString *object in dict.allKeys){
-        id temp = [dict objectForKey: object];
+        id temp = dict[object];
         if(temp != nil && temp != null){
             if([object isEqual: SID_KEY]){
                 coupons.sid = temp;
@@ -237,7 +237,7 @@
     }
     
     if (bid != nil) {
-        [self.sensors setObject:model forKey:bid];
+        (self.sensors)[bid] = model;
     }
 }
 
@@ -257,7 +257,7 @@
         SNShop * shop = [SNShop getInstanceFrom:dict];
         
         if (shop != nil) {
-            [self.shopsInfo setObject:shop forKey:shop.sid];
+            (self.shopsInfo)[shop.sid] = shop;
         }
     }
 }

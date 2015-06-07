@@ -30,7 +30,7 @@
 
 @property (copy) void (^onButtonTouchUpInside)(CustomIOS7AlertView *alertView, int buttonIndex) ;
 
-- (id)init;
+- (instancetype)init;
 
 /*!
  DEPRECATED: Use the [CustomIOS7AlertView init] method without passing a parent view.

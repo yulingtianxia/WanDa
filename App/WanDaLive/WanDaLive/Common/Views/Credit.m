@@ -11,7 +11,7 @@
 
 @implementation Credit
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -48,7 +48,7 @@
 -(void)changeFromNumber:(double) originalnumber toNumber:(double) newnumber withAnimationTime:(NSTimeInterval)timeSpan{
     
     [UIView animateWithDuration:timeSpan delay:3 options:UIViewAnimationOptionTransitionNone animations:^{
-        NSString *currencyStr = [NSNumberFormatter localizedStringFromNumber:[NSNumber numberWithDouble: originalnumber]  numberStyle:NSNumberFormatterCurrencyStyle];
+        NSString *currencyStr = [NSNumberFormatter localizedStringFromNumber:@(originalnumber)  numberStyle:NSNumberFormatterCurrencyStyle];
         currencyStr = [currencyStr substringWithRange:NSMakeRange(1, currencyStr.length-2)];
         if ([[currencyStr substringFromIndex:currencyStr.length-1] isEqualToString:@"0"]) {
             currencyStr =[currencyStr substringToIndex:currencyStr.length-2];

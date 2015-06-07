@@ -10,8 +10,8 @@
 
 @interface WeiboAuthentication : NSObject 
 
-- (id)initWithAuthorizeURL:(NSString *)authorizeURL accessTokenURL:(NSString *)accessTokenURL
-                    AppKey:(NSString *)appKey appSecret:(NSString *)appSecret;
+- (instancetype)initWithAuthorizeURL:(NSString *)authorizeURL accessTokenURL:(NSString *)accessTokenURL
+                    AppKey:(NSString *)appKey appSecret:(NSString *)appSecret NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, copy) NSString *appKey;
 @property (nonatomic, copy) NSString *appSecret;
@@ -24,7 +24,7 @@
 @property (nonatomic, copy) NSString *userId;
 @property (nonatomic, retain) NSDate *expirationDate;
 
-- (NSString *)authorizeRequestUrl;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *authorizeRequestUrl;
 
 @end
 

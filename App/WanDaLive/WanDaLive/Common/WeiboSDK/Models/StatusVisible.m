@@ -11,7 +11,7 @@
 
 @implementation StatusVisible
 
-- (id)initWithJsonDictionary:(NSDictionary*)dic
+- (instancetype)initWithJsonDictionary:(NSDictionary*)dic
 {
 	self = [super init];
     if (self) {
@@ -31,7 +31,7 @@
     [encoder encodeInt:self.groupId forKey:@"groupId"];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder
+- (instancetype)initWithCoder:(NSCoder *)decoder
 {
     self = [super init];
     if (self) {

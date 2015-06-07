@@ -15,8 +15,8 @@
 }
 
 - (BOOL)boolValueForKey:(NSString *)key defaultValue:(BOOL)defaultValue {
-    return [self objectForKey:key] == [NSNull null] ? defaultValue
-    : [[self objectForKey:key] boolValue];
+    return self[key] == [NSNull null] ? defaultValue
+    : [self[key] boolValue];
 }
 
 - (int)intValueForKey:(NSString *)key {
@@ -24,12 +24,12 @@
 }
 
 - (int)intValueForKey:(NSString *)key defaultValue:(int)defaultValue {
-	return [self objectForKey:key] == [NSNull null]
-    ? defaultValue : [[self objectForKey:key] intValue];
+	return self[key] == [NSNull null]
+    ? defaultValue : [self[key] intValue];
 }
 
 - (NSDictionary *)dictionaryValueForKey:(NSString *)key {
-    NSObject *obj = [self objectForKey:key];
+    NSObject *obj = self[key];
     if (obj && [obj isKindOfClass:[NSDictionary class]]) {
         return (NSDictionary *)obj;
     }
@@ -37,7 +37,7 @@
 }
 
 - (NSArray *)arrayValueForKey:(NSString *)key {
-    NSObject *obj = [self objectForKey:key];
+    NSObject *obj = self[key];
     if (obj && [obj isKindOfClass:[NSArray class]]) {
         return (NSArray *)obj;
     }
@@ -49,7 +49,7 @@
 }
 
 - (time_t)timeValueForKey:(NSString *)key defaultValue:(time_t)defaultValue {
-	id timeObject = [self objectForKey:key];
+	id timeObject = self[key];
     if ([timeObject isKindOfClass:[NSNumber class]]) {
         NSNumber *n = (NSNumber *)timeObject;
         CFNumberType numberType = CFNumberGetType((CFNumberRef)n);
@@ -98,8 +98,8 @@
 }
 
 - (long long)longLongValueForKey:(NSString *)key defaultValue:(long long)defaultValue {
-	return [self objectForKey:key] == [NSNull null]
-    ? defaultValue : [[self objectForKey:key] longLongValue];
+	return self[key] == [NSNull null]
+    ? defaultValue : [self[key] longLongValue];
 }
 
 - (double)doubleValueForKey:(NSString *)key {
@@ -107,8 +107,8 @@
 }
 
 - (double)doubleValueForKey:(NSString *)key defaultValue:(double)defaultValue {
-	return [self objectForKey:key] == [NSNull null]
-    ? defaultValue : [[self objectForKey:key] doubleValue];
+	return self[key] == [NSNull null]
+    ? defaultValue : [self[key] doubleValue];
 }
 
 - (NSString *)stringValueForKey:(NSString *)key {
@@ -116,10 +116,10 @@
 }
 
 - (NSString *)stringValueForKey:(NSString *)key defaultValue:(NSString *)defaultValue {
-    if ([self objectForKey:key] == nil || [self objectForKey:key] == [NSNull null]) {
+    if (self[key] == nil || self[key] == [NSNull null]) {
         return defaultValue;
     }
-    id result = [self objectForKey:key];
+    id result = self[key];
     if ([result isKindOfClass:[NSNumber class]]) {
         return [result stringValue];
     }
@@ -130,7 +130,7 @@
 
 - (NSArray *)arrayObjectForKey:(NSString *)key
                   defaultValue:(NSArray *)defaultValue {
-    id obj = [self objectForKey:key];
+    id obj = self[key];
 	return obj == nil || obj == [NSNull null] || ![obj isKindOfClass:[NSArray class]]
     ? defaultValue : obj;
 }
@@ -141,7 +141,7 @@
 
 - (NSDictionary *)dictionaryObjectForKey:(NSString *)key
                             defaultValue:(NSDictionary *)defaultValue {
-    id obj = [self objectForKey:key];
+    id obj = self[key];
 	return obj == nil || obj == [NSNull null] || ![obj isKindOfClass:[NSDictionary class]]
     ? defaultValue : obj;
 }

@@ -54,7 +54,7 @@
  @endcode
  
  */
-- (id)proxyForJson;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) id proxyForJson;
 
 @end
 
@@ -148,28 +148,28 @@
  Start writing an Object to the stream
  @return YES if successful, or NO on failure
 */
-- (BOOL)writeObjectOpen;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL writeObjectOpen;
 
 /**
  Close the current object being written
  @return YES if successful, or NO on failure
 */
-- (BOOL)writeObjectClose;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL writeObjectClose;
 
 /** Start writing an Array to the stream
  @return YES if successful, or NO on failure
 */
-- (BOOL)writeArrayOpen;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL writeArrayOpen;
 
 /** Close the current Array being written
  @return YES if successful, or NO on failure
 */
-- (BOOL)writeArrayClose;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL writeArrayClose;
 
 /** Write a null to the stream
  @return YES if successful, or NO on failure
 */
-- (BOOL)writeNull;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL writeNull;
 
 /** Write a boolean to the stream
  @return YES if successful, or NO on failure

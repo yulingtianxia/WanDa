@@ -24,15 +24,15 @@ typedef void(^WeiboUserAuthenticationCompletedBlock)(WeiboAccount *account, NSEr
 typedef void(^WeiboNewStatusCompletedBlock)(Status *status, NSError *error);
 
 
-typedef enum {
+typedef NS_ENUM(unsigned int, StatusTimeline) {
     StatusTimelineFriends = 0,
     StatusTimelineMentions = 1,
-} StatusTimeline;
+};
 
 
 @interface Weibo : NSObject
 
-- (id)initWithAppKey:(NSString *)appKey withAppSecret:(NSString *)appSecret;
+- (instancetype)initWithAppKey:(NSString *)appKey withAppSecret:(NSString *)appSecret NS_DESIGNATED_INITIALIZER;
 + (Weibo*)weibo;
 + (Weibo*)setWeibo:(Weibo*)weibo;
 
@@ -42,10 +42,10 @@ typedef enum {
 
 #pragma mark - Auth
 
-- (BOOL)isAuthenticated;
+@property (NS_NONATOMIC_IOSONLY, getter=isAuthenticated, readonly) BOOL authenticated;
 - (void)authorizeWithCompleted:(WeiboUserAuthenticationCompletedBlock)completedBlock;
 - (void)signOut;
-- (WeiboAccount *)currentAccount;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) WeiboAccount *currentAccount;
 
 #pragma mark - User Query
 

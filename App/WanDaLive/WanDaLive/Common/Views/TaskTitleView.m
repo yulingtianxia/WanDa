@@ -12,7 +12,7 @@
 @synthesize color;
 @synthesize radius;
 @synthesize title;
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {

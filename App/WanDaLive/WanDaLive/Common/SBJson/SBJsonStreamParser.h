@@ -36,11 +36,11 @@
 @class SBJsonStreamParser;
 @class SBJsonStreamParserState;
 
-typedef enum {
+typedef NS_ENUM(unsigned int, SBJsonStreamParserStatus) {
 	SBJsonStreamParserComplete,
 	SBJsonStreamParserWaitingForData,
 	SBJsonStreamParserError,
-} SBJsonStreamParserStatus;
+};
 
 
 /**

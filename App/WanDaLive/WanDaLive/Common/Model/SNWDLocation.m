@@ -11,7 +11,7 @@
 @implementation SNWDLocation
 @synthesize Name;
 @synthesize WDLoc;
--(id)initWithName:(NSString*) name Location:(CLLocation *)loc{
+-(instancetype)initWithName:(NSString*) name Location:(CLLocation *)loc{
     if (self=[super init]) {
         Name=name;
         WDLoc=loc;

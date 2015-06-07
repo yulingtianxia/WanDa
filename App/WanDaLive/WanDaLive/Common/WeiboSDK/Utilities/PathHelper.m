@@ -35,7 +35,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 + (NSString*)documentDirectoryPathWithName:(NSString*)name {
 	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString* cachesPath = [paths objectAtIndex:0];
+	NSString* cachesPath = paths[0];
 	NSString* cachePath = [cachesPath stringByAppendingPathComponent:name];
 	
 	[PathHelper createPathIfNecessary:cachesPath];
@@ -51,7 +51,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 + (NSString*)cacheDirectoryPathWithName:(NSString*)name createPathIfNecessary:(BOOL)createPathIfNecessary{
 	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-	NSString* cachesPath = [paths objectAtIndex:0];
+	NSString* cachesPath = paths[0];
 	NSString* cachePath = [cachesPath stringByAppendingPathComponent:name];
 	
     if (createPathIfNecessary) {

@@ -24,7 +24,7 @@ static NSString *cookieURLString = @"http://www.trackmaster.com.cn";
         return NO;
     }
     
-    NSHTTPCookie *cookie = [cookies objectAtIndex:0]; //? is index 0 ok in future?
+    NSHTTPCookie *cookie = cookies[0]; //? is index 0 ok in future?
     // they both in gmt time, not localized, so just compare it
     if ([cookie.expiresDate compare:[NSDate date]] == NSOrderedDescending) {
         return YES;

@@ -39,7 +39,7 @@ NSString* msgWithCode(NSInteger statusCode) {
                           nil];
     }
     NSString * status = [NSString stringWithFormat:@"%ld",(long)statusCode];
-    NSString *msg = [codeMapFromMsg objectForKey:status];
+    NSString *msg = codeMapFromMsg[status];
     if (!msg) {
         msg = @"未知错误";
     }
@@ -49,12 +49,12 @@ NSString* msgWithCode(NSInteger statusCode) {
 @implementation TMError
 
 + (NSError *)errorWithMsg:(NSString *)msg {
-    return [NSError errorWithDomain:@"SensoroErrorDomain" code:0  userInfo:[NSDictionary dictionaryWithObject:msg forKey:@"err_msg"]];
+    return [NSError errorWithDomain:@"SensoroErrorDomain" code:0  userInfo:@{@"err_msg": msg}];
 }
 
 + (NSError *)errorWithCode:(NSInteger)statusCode
 {
-    return [NSError errorWithDomain:@"SensoroErrorDomain" code:statusCode userInfo:[NSDictionary dictionaryWithObject:msgWithCode(statusCode) forKey:@"err_msg"]];
+    return [NSError errorWithDomain:@"SensoroErrorDomain" code:statusCode userInfo:@{@"err_msg": msgWithCode(statusCode)}];
 }
 
 @end
@@ -62,7 +62,7 @@ NSString* msgWithCode(NSInteger statusCode) {
 @implementation NSError (geterrormsg)
 
 - (NSString *)err_msg {
-    NSString * errDesc = [self.userInfo objectForKey:@"err_msg"];
+    NSString * errDesc = (self.userInfo)[@"err_msg"];
     if(errDesc == nil || [errDesc length] == 0){
         errDesc = [self localizedDescription];
     }

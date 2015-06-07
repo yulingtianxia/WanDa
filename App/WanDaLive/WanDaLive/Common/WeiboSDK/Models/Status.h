@@ -16,7 +16,7 @@
 }
 
 + (Status *)statusWithJsonDictionary:(NSDictionary*)dic;
-- (id)initWithJsonDictionary:(NSDictionary*)dic;
+- (instancetype)initWithJsonDictionary:(NSDictionary*)dic NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, copy) NSString *statusIdString; //字符串型的微博ID
 @property (nonatomic, assign) time_t createdAt;  //创建时间
@@ -39,7 +39,7 @@
 @property (nonatomic, strong) Status *retweetedStatus; // 转发微博
 @property (nonatomic, readonly) NSNumber *statusKey;
 
-- (NSString*)statusTimeString;
-- (NSString*)statusDateTimeString;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *statusTimeString;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *statusDateTimeString;
 
 @end

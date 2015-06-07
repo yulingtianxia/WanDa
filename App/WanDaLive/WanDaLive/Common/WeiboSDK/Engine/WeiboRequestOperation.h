@@ -16,9 +16,9 @@ typedef void(^WeiboRequestCompletedBlock)(id result, NSData *data, NSError *erro
 @property (nonatomic, strong, readonly) NSURLRequest *request;
 @property (nonatomic, readonly) BOOL sessionDidExpire;
 
-- (id)initWithRequest:(NSURLRequest *)request
+- (instancetype)initWithRequest:(NSURLRequest *)request
                 queue:(dispatch_queue_t)queue
             completed:(WeiboRequestCompletedBlock)completedBlock
-            cancelled:(void (^)())cancelBlock;
+            cancelled:(void (^)())cancelBlock NS_DESIGNATED_INITIALIZER;
 
 @end

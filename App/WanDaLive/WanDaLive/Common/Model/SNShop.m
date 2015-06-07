@@ -17,7 +17,7 @@
     
     NSNull * null = [NSNull null];
     
-    id temp = [dict objectForKey:SID_KEY];
+    id temp = dict[SID_KEY];
     if (temp == nil ||
         temp == null) {
         return nil;//没有ID是致命缺陷。
@@ -31,19 +31,19 @@
         }
     }
     
-    temp = [dict objectForKey:NAME_KEY];
+    temp = dict[NAME_KEY];
     if (temp != nil &&
         temp != null) {
         model.name = temp;
     }
     
-    temp = [dict objectForKey:ADDRESS_KEY];
+    temp = dict[ADDRESS_KEY];
     if (temp != nil &&
         temp != null) {
         model.address = temp;
     }
     
-    temp = [dict objectForKey:LOGO_KEY];
+    temp = dict[LOGO_KEY];
     if (temp != nil &&
         temp != null) {
         model.logo = temp;

@@ -27,7 +27,7 @@ static const int kGeneralErrorCode = 10000;
 
 @implementation WeiboRequestOperation
 
-- (id)initWithRequest:(NSURLRequest *)request
+- (instancetype)initWithRequest:(NSURLRequest *)request
                 queue:(dispatch_queue_t)queue
             completed:(WeiboRequestCompletedBlock)completedBlock
             cancelled:(void (^)())cancelBlock
@@ -38,8 +38,8 @@ static const int kGeneralErrorCode = 10000;
         _request = request;
         _completedBlock = [completedBlock copy];
         _cancelBlock = [cancelBlock copy];
-        _executing = NO;
-        _finished = NO;
+        self.executing = NO;
+        self.finished = NO;
     }
     return self;
 }
@@ -107,14 +107,14 @@ static const int kGeneralErrorCode = 10000;
 - (void)setFinished:(BOOL)finished
 {
     [self willChangeValueForKey:@"isFinished"];
-    _finished = finished;
+    self.finished = finished;
     [self didChangeValueForKey:@"isFinished"];
 }
 
 - (void)setExecuting:(BOOL)executing
 {
     [self willChangeValueForKey:@"isExecuting"];
-    _executing = executing;
+    self.executing = executing;
     [self didChangeValueForKey:@"isExecuting"];
 }
 
@@ -146,10 +146,10 @@ static const int kGeneralErrorCode = 10000;
     
 	if ([result isKindOfClass:[NSDictionary class]])
 	{
-		if ([result objectForKey:@"error_code"] != nil && [[result objectForKey:@"error_code"] intValue] != 200)
+		if (result[@"error_code"] != nil && [result[@"error_code"] intValue] != 200)
 		{
             
-            int errorCode = [[result objectForKey:@"error_code"] intValue];
+            int errorCode = [result[@"error_code"] intValue];
             NSError *_error = [self formError:errorCode userInfo:result];;
             if (error != nil)
             {

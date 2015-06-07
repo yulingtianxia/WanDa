@@ -50,7 +50,7 @@ CGFloat buttonSpacerHeight = 0;
     return self;
 }
 
-- (id)init
+- (instancetype)init
 {
     return [self initWithParentView:NULL];
 }
@@ -187,11 +187,9 @@ CGFloat buttonSpacerHeight = 0;
     // First, we style the dialog to match the iOS7 UIAlertView >>>
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = dialogContainer.bounds;
-    gradient.colors = [NSArray arrayWithObjects:
-                       (id)[[UIColor colorWithRed:218.0/255.0 green:218.0/255.0 blue:218.0/255.0 alpha:1.0f] CGColor],
+    gradient.colors = @[(id)[[UIColor colorWithRed:218.0/255.0 green:218.0/255.0 blue:218.0/255.0 alpha:1.0f] CGColor],
                        (id)[[UIColor colorWithRed:233.0/255.0 green:233.0/255.0 blue:233.0/255.0 alpha:1.0f] CGColor],
-                       (id)[[UIColor colorWithRed:218.0/255.0 green:218.0/255.0 blue:218.0/255.0 alpha:1.0f] CGColor],
-                       nil];
+                       (id)[[UIColor colorWithRed:218.0/255.0 green:218.0/255.0 blue:218.0/255.0 alpha:1.0f] CGColor]];
 
     CGFloat cornerRadius = kCustomIOS7AlertViewCornerRadius;
     gradient.cornerRadius = cornerRadius;
@@ -235,7 +233,7 @@ CGFloat buttonSpacerHeight = 0;
         [closeButton addTarget:self action:@selector(customIOS7dialogButtonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
         [closeButton setTag:i];
 
-        [closeButton setTitle:[buttonTitles objectAtIndex:i] forState:UIControlStateNormal];
+        [closeButton setTitle:buttonTitles[i] forState:UIControlStateNormal];
         [closeButton setTitleColor:[UIColor colorWithRed:0.0f green:0.5f blue:1.0f alpha:1.0f] forState:UIControlStateNormal];
         [closeButton setTitleColor:[UIColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.5f] forState:UIControlStateHighlighted];
         [closeButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
@@ -363,7 +361,7 @@ CGFloat buttonSpacerHeight = 0;
 {
     CGSize screenSize = [self countScreenSize];
     CGSize dialogSize = [self countDialogSize];
-    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGSize keyboardSize = [[notification userInfo][UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
 
     UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     if (UIInterfaceOrientationIsLandscape(interfaceOrientation)) {

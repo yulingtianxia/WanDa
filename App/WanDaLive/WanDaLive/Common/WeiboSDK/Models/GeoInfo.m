@@ -11,14 +11,14 @@
 
 @implementation GeoInfo
 
-- (id)initWithJsonDictionary:(NSDictionary*)dic
+- (instancetype)initWithJsonDictionary:(NSDictionary*)dic
 {
 	self = [super init];
     if (self) {
         NSArray *coordinatesArray = [dic arrayValueForKey:@"coordinates"];
         if (coordinatesArray && coordinatesArray.count == 2) {
-            self.latitude = [[coordinatesArray objectAtIndex:0] doubleValue];
-            self.longitude = [[coordinatesArray objectAtIndex:1] doubleValue];
+            self.latitude = [coordinatesArray[0] doubleValue];
+            self.longitude = [coordinatesArray[1] doubleValue];
         }
     }
     return self;
@@ -34,7 +34,7 @@
     [encoder encodeDouble:self.longitude forKey:@"longitude"];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder
+- (instancetype)initWithCoder:(NSCoder *)decoder
 {
     self = [super init];
     if (self) {

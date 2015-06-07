@@ -16,7 +16,7 @@
 
 @implementation WeiboLoginDialog
 
--(id) initWithURL:(NSURL *) loginURL
+-(instancetype) initWithURL:(NSURL *) loginURL
          delegate:(id <WeiboLoginDialogDelegate>) delegate {
     self = [super init];
     if (self) {

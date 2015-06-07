@@ -43,7 +43,7 @@
  
  @see @ref objc2json
  */
-- (NSString *)JSONRepresentation;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *JSONRepresentation;
 
 @end
 
@@ -60,7 +60,7 @@
  
  @see @ref json2objc
  */
-- (id)JSONValue;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) id JSONValue;
 
 @end
 
@@ -74,6 +74,6 @@
  
  @see @ref json2objc
  */
-- (id)JSONValue;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) id JSONValue;
 
 @end

@@ -36,8 +36,8 @@
 }
 @property(nonatomic,retain) UIImage* grayImage;
 @property (nonatomic,retain) UIImage* normalImage;
-- (id)initWithPlaceholderImage:(UIImage*)anImage; // delegate:nil
-- (id)initWithPlaceholderImage:(UIImage*)anImage delegate:(id<EGOImageViewDelegate>)aDelegate;
+- (instancetype)initWithPlaceholderImage:(UIImage*)anImage; // delegate:nil
+- (instancetype)initWithPlaceholderImage:(UIImage*)anImage delegate:(id<EGOImageViewDelegate>)aDelegate NS_DESIGNATED_INITIALIZER;
 
 - (void)cancelImageLoad;
 

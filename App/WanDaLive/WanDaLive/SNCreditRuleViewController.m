@@ -19,7 +19,7 @@
 @synthesize creditRuleTable;
 @synthesize creditRuleRequest;
 @synthesize shops;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -87,9 +87,9 @@
         
         for (int i=0; i<arr.count; i++) {
 
-            NSString *sid = [(NSDictionary*)arr[i] objectForKey:@"sid"];
-            NSString *credit =[NSString stringWithFormat:@"%@",[(NSDictionary*)arr[i] objectForKey:@"credits"]] ;
-            SNShop * shop = [[SNTopModel sharedInstance].shopsInfo objectForKey:sid];
+            NSString *sid = ((NSDictionary*)arr[i])[@"sid"];
+            NSString *credit =[NSString stringWithFormat:@"%@",((NSDictionary*)arr[i])[@"credits"]] ;
+            SNShop * shop = ([SNTopModel sharedInstance].shopsInfo)[sid];
             shop.credits = credit;
             [shops addObject:shop];
             

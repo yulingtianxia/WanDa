@@ -10,12 +10,12 @@
 
 @implementation WeiboAccount
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     return self;
 }
 
-- (id)initWithAuthentication:(WeiboAuthentication *)auth
+- (instancetype)initWithAuthentication:(WeiboAuthentication *)auth
                         user:(User *)user {
     self = [super init];
     if (self) {
@@ -40,7 +40,7 @@
     [encoder encodeBool:self.selected forKey:@"selected"];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder
+- (instancetype)initWithCoder:(NSCoder *)decoder
 {
     self = [super init];
     if (self) {

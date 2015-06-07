@@ -30,8 +30,8 @@ typedef void(^WeiboSignedInBlock)(WeiboAuthentication *auth, NSError *error);
 
 @interface WeiboSignIn : NSObject<WeiboLoginDialogDelegate>
 
-- (id)initWithWeiboAuthentication:(WeiboAuthentication *)authentication
-                        withBlock:(WeiboSignedInBlock)signedInBlock;
+- (instancetype)initWithWeiboAuthentication:(WeiboAuthentication *)authentication
+                        withBlock:(WeiboSignedInBlock)signedInBlock NS_DESIGNATED_INITIALIZER;
 
 
 - (void)signIn;

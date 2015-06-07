@@ -41,10 +41,10 @@
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token;
 - (SBJsonStreamParserStatus)parserShouldReturn:(SBJsonStreamParser*)parser;
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok;
-- (BOOL)needKey;
-- (BOOL)isError;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL needKey;
+@property (NS_NONATOMIC_IOSONLY, getter=isError, readonly) BOOL error;
 
-- (NSString*)name;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *name;
 
 @end
 

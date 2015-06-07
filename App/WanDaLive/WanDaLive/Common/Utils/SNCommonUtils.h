@@ -11,7 +11,7 @@
 @interface SNCommonUtils : NSObject
 
 + (CGSize)calHeightForWidth:(CGFloat)width withString:(NSString *)str font:(UIFont *)font;//当宽度指定时，获取自动换行的字符串的size信息。
-+ (CGColorRef) getColorFromRed:(int)red Green:(int)green Blue:(int)blue Alpha:(int)alpha; //获取颜色，RGB值范围0-255，alpha值范围0-1
++ (CGColorRef) getColorFromRed:(int)red Green:(int)green Blue:(int)blue Alpha:(int)alpha CF_RETURNS_NOT_RETAINED; //获取颜色，RGB值范围0-255，alpha值范围0-1
 
 + (NSString *)timeStamp;//获取当前时间戳
 + (NSString *)timeStampFromDate:(NSDate *)date;//时间转换为时间戳

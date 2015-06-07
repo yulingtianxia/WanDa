@@ -32,7 +32,7 @@
     return instance;
 }
 
-- (id)init
+- (instancetype)init
 {
     if ((self = [super init]))
     {
@@ -94,8 +94,8 @@
 
 - (NSDictionary *)processParams:(NSDictionary *)params {
     NSMutableDictionary *dic = params ? [NSMutableDictionary dictionaryWithDictionary:params] : [NSMutableDictionary dictionary];
-    if (![dic objectForKey:@"access_token"] && self.accessToken) {
-        [dic setObject:self.accessToken forKey:@"access_token"];
+    if (!dic[@"access_token"] && self.accessToken) {
+        dic[@"access_token"] = self.accessToken;
     }
     return dic;
 }

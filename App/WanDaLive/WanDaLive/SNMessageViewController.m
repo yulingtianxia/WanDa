@@ -36,7 +36,7 @@
 
 @implementation SNMessageViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -178,7 +178,7 @@
         
         NSUInteger row = [indexPath row];
         //显示message信息
-        SNMessage * message = [[SNMessageManager sharedInstance].allMessage objectAtIndex:row];
+        SNMessage * message = ([SNMessageManager sharedInstance].allMessage)[row];
         [cell setupCell:message];
         return cell;
     }
@@ -194,7 +194,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row < [[SNMessageManager sharedInstance].allMessage count]) {
-        SNMessage * message = [[SNMessageManager sharedInstance].allMessage objectAtIndex:indexPath.row];
+        SNMessage * message = ([SNMessageManager sharedInstance].allMessage)[indexPath.row];
         
         CGSize size = [SNCommonUtils calHeightForWidth:160 withString:message.content font:MSG_FONT];
         int h = size.height;
@@ -208,7 +208,7 @@
     if (indexPath.row >= [[SNMessageManager sharedInstance].allMessage count]) {
         return;
     }
-    SNMessage * message = [[SNMessageManager sharedInstance].allMessage objectAtIndex:indexPath.row];
+    SNMessage * message = ([SNMessageManager sharedInstance].allMessage)[indexPath.row];
     if ([message.type isEqualToString:@"credits"]) {
         [self performSegueWithIdentifier:@"showPersonInfo" sender:self];
     }else if ([message.type isEqualToString:@"shop"]){
@@ -279,7 +279,7 @@
             //根据获取的数据格式生成消息串，并添加进消息列表
             [[SNMessageManager sharedInstance] setupMessages:array];
             //获取最后一条消息的时间戳，上拉加载时使用该时间戳获取该时间之前的消息
-            double lTimeStamp = [[[array lastObject] objectForKey:@"timestamp"] doubleValue];
+            double lTimeStamp = [[array lastObject][@"timestamp"] doubleValue];
             self.leastTimeStamp = [NSString stringWithFormat:@"%.0f",lTimeStamp - 1];
             _isBottom = NO;
         }

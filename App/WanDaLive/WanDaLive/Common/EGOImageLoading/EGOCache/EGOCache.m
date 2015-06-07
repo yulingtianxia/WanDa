@@ -69,7 +69,7 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 	return instance;
 }
 
-- (id)init {
+- (instancetype)init {
 	NSString* cachesDirectory = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
 	NSString* oldCachesDirectory = [[[cachesDirectory stringByAppendingPathComponent:[[NSProcessInfo processInfo] processName]] stringByAppendingPathComponent:@"EGOCache"] copy];
 
@@ -81,7 +81,7 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 	return [self initWithCacheDirectory:cachesDirectory];
 }
 
-- (id)initWithCacheDirectory:(NSString*)cacheDirectory {
+- (instancetype)initWithCacheDirectory:(NSString*)cacheDirectory {
 	if((self = [super init])) {
 
 		_cacheInfoQueue = dispatch_queue_create("com.enormego.egocache.info", DISPATCH_QUEUE_SERIAL);

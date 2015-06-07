@@ -46,7 +46,7 @@
 
 @synthesize sortKeysComparator;
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         self.maxDepth = 32u;        
@@ -68,7 +68,7 @@
         return tmp;
     
     if (error_) {
-		NSDictionary *ui = [NSDictionary dictionaryWithObjectsAndKeys:error, NSLocalizedDescriptionKey, nil];
+		NSDictionary *ui = @{NSLocalizedDescriptionKey: error};
         *error_ = [NSError errorWithDomain:@"org.brautaset.SBJsonWriter.ErrorDomain" code:0 userInfo:ui];
 	}
 	

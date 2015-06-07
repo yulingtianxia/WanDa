@@ -52,7 +52,7 @@ static NSCharacterSet *kDecimalDigitCharacterSet;
     kDecimalDigitCharacterSet = [NSCharacterSet decimalDigitCharacterSet];
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         _stream = [[SBJsonUTF8Stream alloc] init];

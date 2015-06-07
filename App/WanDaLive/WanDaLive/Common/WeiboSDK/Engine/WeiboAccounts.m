@@ -19,7 +19,7 @@
 
 @implementation WeiboAccounts
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         self.accountsDictionary = [[NSMutableDictionary alloc] init];
@@ -65,7 +65,7 @@
 	}
 	self.accounts = [NSMutableArray arrayWithArray:weiboAccounts];
     for (WeiboAccount *account in self.accounts) {
-        [_accountsDictionary setObject:account forKey:account.userId];
+        _accountsDictionary[account.userId] = account;
     }
 }
 
@@ -80,7 +80,7 @@
     if (!account.user) {
         return NO;
     }
-    WeiboAccount *addedAccount = [_accountsDictionary objectForKey:account.userId];
+    WeiboAccount *addedAccount = _accountsDictionary[account.userId];
     if (addedAccount) {
         addedAccount.accessToken = account.accessToken;
         addedAccount.expirationDate = account.expirationDate;
@@ -90,7 +90,7 @@
         if (_accounts.count == 0) {
             account.selected = YES;
         }
-        [_accountsDictionary setObject:account forKey:account.userId];
+        _accountsDictionary[account.userId] = account;
         [_accounts insertObject:account atIndex:0];
     }
     [self saveWeiboAccounts];
@@ -98,7 +98,7 @@
 }
 
 - (void)removeWeiboAccount:(WeiboAccount *)account {
-    WeiboAccount *accountToBeRemoved = [_accountsDictionary objectForKey:account.userId];
+    WeiboAccount *accountToBeRemoved = _accountsDictionary[account.userId];
     BOOL isCurrentAccount = accountToBeRemoved.selected;
     if (accountToBeRemoved) {
         [_accounts removeObject:accountToBeRemoved];
@@ -106,7 +106,7 @@
     }
     if (isCurrentAccount) {
         if (_accounts.count > 0) {
-            [[_accounts objectAtIndex:0] setSelected:YES];
+            [_accounts[0] setSelected:YES];
         }
     }
     [self saveWeiboAccounts];

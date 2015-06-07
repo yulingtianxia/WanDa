@@ -33,7 +33,7 @@
 - (void) setupMessages:(NSArray *)messagesArry;
 - (void) setUpCreditMsgs:(NSArray *)array;  
 
-- (NSArray*) allMessage;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *allMessage;
 
 + (SNMessageManager *)sharedInstance;
 

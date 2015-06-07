@@ -236,7 +236,7 @@ static BOOL IsDeviceIPad() {
 }
 
 
-- (id)init {
+- (instancetype)init {
     if ((self = [super initWithFrame:CGRectZero])) {
         _delegate = nil;
         _everShown = NO;

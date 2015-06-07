@@ -10,7 +10,7 @@
 
 @interface StatusImage : NSObject<NSCoding>
 
-- (id)initWithJsonDictionary:(NSDictionary*)dic;
+- (instancetype)initWithJsonDictionary:(NSDictionary*)dic NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, copy) NSString *middleImageUrl; //中等尺寸图片地址
 @property (nonatomic, copy) NSString *originalImageUrl; //原始图片地址

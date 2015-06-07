@@ -57,9 +57,9 @@ static int networkConnectionCount = 0;
 
 + (NSString *)userAgent {
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    NSString *name = [infoDictionary objectForKey:@"CFBundleDisplayName"];
-    NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    NSString *build = [infoDictionary objectForKey:@"CFBundleVersion"];
+    NSString *name = infoDictionary[@"CFBundleDisplayName"];
+    NSString *version = infoDictionary[@"CFBundleShortVersionString"];
+    NSString *build = infoDictionary[@"CFBundleVersion"];
     
     //Sensoro/4.0 (SystemName; SystemVersion) Product/version/release
     return [NSString stringWithFormat:@"Sensoro/1.0 (%@; %@) %@ for iPhone(Dev)/%@/%@",
@@ -116,7 +116,7 @@ static int networkConnectionCount = 0;
     NSMutableArray *pairs = [NSMutableArray array];
     for (NSString *key in [params keyEnumerator]) {
         NSString *escaped_key = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)key, NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]",kCFStringEncodingUTF8);
-        NSString *escaped_value = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)[params objectForKey:key], NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]",kCFStringEncodingUTF8);
+        NSString *escaped_value = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)params[key], NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]",kCFStringEncodingUTF8);
         [pairs addObject:[NSString stringWithFormat:@"%@=%@",escaped_key,escaped_value]];
     }
     
@@ -134,7 +134,7 @@ static int networkConnectionCount = 0;
     return [NSString stringWithFormat:@"%@%@%@", baseUrl, queryPrefix, query];
 }
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {

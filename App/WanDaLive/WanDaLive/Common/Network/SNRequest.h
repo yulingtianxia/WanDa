@@ -47,7 +47,7 @@
 + (SNRequest*)getPutRequestWithParams:(NSMutableDictionary *)params
                              delegate:(id<RequestDelegate>)delegate
                            requestURL:(NSString *)url;
-- (BOOL)isLoading;
+@property (NS_NONATOMIC_IOSONLY, getter=isLoading, readonly) BOOL loading;
 - (void)cancel;
 - (void)connect;
 

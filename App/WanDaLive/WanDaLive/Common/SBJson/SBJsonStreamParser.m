@@ -46,7 +46,7 @@
 
 #pragma mark Housekeeping
 
-- (id)init {
+- (instancetype)init {
 	self = [super init];
 	if (self) {
 		maxDepth = 32u;

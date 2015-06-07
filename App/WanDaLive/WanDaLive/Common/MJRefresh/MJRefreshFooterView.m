@@ -17,7 +17,7 @@
 @implementation MJRefreshFooterView
 
 #pragma mark - 初始化
-- (id)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame: frame]) {
         // 移除刷新时间
 		[_lastUpdateTimeLabel removeFromSuperview];

@@ -12,7 +12,7 @@
 @implementation StatusImage
 
 
-- (id)initWithJsonDictionary:(NSDictionary*)dic
+- (instancetype)initWithJsonDictionary:(NSDictionary*)dic
 {
 	self = [super init];
     if (self) {
@@ -41,7 +41,7 @@
     [encoder encodeObject:self.thumbnailImageUrl forKey:@"thumbnailImageUrl"];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder
+- (instancetype)initWithCoder:(NSCoder *)decoder
 {
     self = [super init];
     if (self) {

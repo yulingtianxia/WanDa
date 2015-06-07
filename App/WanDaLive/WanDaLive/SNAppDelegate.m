@@ -85,17 +85,17 @@ NSString * curTime;
     //判断是否是用户点击Notification进入的。
     
     UILocalNotification *localNotif =
-    [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
     if (localNotif) {
         NSLog(@"Call didFinishLaunchingWithOptions with local notification %@",localNotif);
         //        NSUserDefaults *local = [NSUserDefaults standardUserDefaults];
-        NSString * url = [localNotif.userInfo objectForKey:@"url"];
+        NSString * url = (localNotif.userInfo)[@"url"];
         //        [local setObject:url forKey:@"localNotif"];
         //        [local synchronize];
-        localNotifURL = [NSDictionary dictionaryWithObjectsAndKeys:url,@"url",@"yes",@"hasUrl", nil];
+        localNotifURL = @{@"url": url,@"hasUrl": @"yes"};
         [self showNotificationInfo:localNotif application:application];
     }
-    else localNotifURL = [NSDictionary dictionaryWithObjectsAndKeys:[NSNull null],@"url",@"no",@"hasUrl", nil];
+    else localNotifURL = @{@"url": [NSNull null],@"hasUrl": @"no"};
     [application cancelAllLocalNotifications];
     
     //更新本地寻宝规则
@@ -240,14 +240,14 @@ NSString * curTime;
         [LastLunchDate setValue:@"yes" forKey:@"isnewrule"];
         [LastLunchDate synchronize];
         
-        if ([result objectForKey:@"shops"]!=[NSNull null]) {
-            NSDictionary * dic =(NSDictionary*)[result objectForKey:@"shops"];
+        if (result[@"shops"]!=[NSNull null]) {
+            NSDictionary * dic =(NSDictionary*)result[@"shops"];
             [[SNTopModel sharedInstance] initShops:dic];
         }
     }
     else if(result!=NULL&&self.registerRequest == request){
         self.registerRequest = nil;
-        NSString * uid = [result objectForKey:@"id"];
+        NSString * uid = result[@"id"];
         //此处没同步，不知道对不对@顾家俊
         [[NSUserDefaults standardUserDefaults] setObject:uid forKey:@"UID"];
         
@@ -266,7 +266,7 @@ NSString * curTime;
     SNWebViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"shopInfoController"];
     if (controller != nil) {
         //[controller presentedViewController];
-        NSString * url = [notification.userInfo objectForKey:@"url"];
+        NSString * url = (notification.userInfo)[@"url"];
         controller.url = url;
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:controller animated:YES completion:nil];
     }

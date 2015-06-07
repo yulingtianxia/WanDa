@@ -9,20 +9,20 @@
 #import <Foundation/Foundation.h>
 
 
-typedef enum {
+typedef NS_ENUM(unsigned int, Gender) {
     GenderUnknow = 0,
     GenderMale,
     GenderFemale,
-} Gender;
+};
 
-typedef enum {
+typedef NS_ENUM(unsigned int, OnlineStatus) {
     OnlineStatusOffline = 0,
     OnlineStatusOnline = 1,
-} OnlineStatus;
+};
 
 @interface User : NSObject<NSCoding>
 
-- (id)initWithJsonDictionary:(NSDictionary*)dic;
+- (instancetype)initWithJsonDictionary:(NSDictionary*)dic NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, assign) long long userId; //用户UID
 @property (nonatomic, copy) NSString *screenName; //用户昵称

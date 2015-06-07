@@ -114,7 +114,7 @@ typedef NSUInteger JKFlags;
                                  Any malformed Unicode is replaced with \uFFFD, or "REPLACEMENT CHARACTER".
  */
 
-enum {
+typedef NS_OPTIONS(NSUInteger, JKParseOptionFlags) {
   JKParseOptionNone                     = 0,
   JKParseOptionStrict                   = 0,
   JKParseOptionComments                 = (1 << 0),
@@ -123,16 +123,14 @@ enum {
   JKParseOptionPermitTextAfterValidJSON = (1 << 3),
   JKParseOptionValidFlags               = (JKParseOptionComments | JKParseOptionUnicodeNewlines | JKParseOptionLooseUnicode | JKParseOptionPermitTextAfterValidJSON),
 };
-typedef JKFlags JKParseOptionFlags;
 
-enum {
+typedef NS_OPTIONS(NSUInteger, JKSerializeOptionFlags) {
   JKSerializeOptionNone                 = 0,
   JKSerializeOptionPretty               = (1 << 0),
   JKSerializeOptionEscapeUnicode        = (1 << 1),
   JKSerializeOptionEscapeForwardSlashes = (1 << 4),
   JKSerializeOptionValidFlags           = (JKSerializeOptionPretty | JKSerializeOptionEscapeUnicode | JKSerializeOptionEscapeForwardSlashes),
 };
-typedef JKFlags JKSerializeOptionFlags;
 
 #ifdef    __OBJC__
 
@@ -143,9 +141,9 @@ typedef struct JKParseState JKParseState; // Opaque internal, private type.
 @interface JSONDecoder : NSObject {
   JKParseState *parseState;
 }
-+ (id)decoder;
-+ (id)decoderWithParseOptions:(JKParseOptionFlags)parseOptionFlags;
-- (id)initWithParseOptions:(JKParseOptionFlags)parseOptionFlags;
++ (instancetype)decoder;
++ (instancetype)decoderWithParseOptions:(JKParseOptionFlags)parseOptionFlags;
+- (instancetype)initWithParseOptions:(JKParseOptionFlags)parseOptionFlags NS_DESIGNATED_INITIALIZER;
 - (void)clearCache;
 
 // The parse... methods were deprecated in v1.4 in favor of the v1.4 objectWith... methods.
@@ -176,20 +174,20 @@ typedef struct JKParseState JKParseState; // Opaque internal, private type.
 ////////////
 
 @interface NSString (JSONKitDeserializing)
-- (id)objectFromJSONString;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) id objectFromJSONString;
 - (id)objectFromJSONStringWithParseOptions:(JKParseOptionFlags)parseOptionFlags;
 - (id)objectFromJSONStringWithParseOptions:(JKParseOptionFlags)parseOptionFlags error:(NSError **)error;
-- (id)mutableObjectFromJSONString;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) id mutableObjectFromJSONString;
 - (id)mutableObjectFromJSONStringWithParseOptions:(JKParseOptionFlags)parseOptionFlags;
 - (id)mutableObjectFromJSONStringWithParseOptions:(JKParseOptionFlags)parseOptionFlags error:(NSError **)error;
 @end
 
 @interface NSData (JSONKitDeserializing)
 // The NSData MUST be UTF8 encoded JSON.
-- (id)objectFromJSONData;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) id objectFromJSONData;
 - (id)objectFromJSONDataWithParseOptions:(JKParseOptionFlags)parseOptionFlags;
 - (id)objectFromJSONDataWithParseOptions:(JKParseOptionFlags)parseOptionFlags error:(NSError **)error;
-- (id)mutableObjectFromJSONData;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) id mutableObjectFromJSONData;
 - (id)mutableObjectFromJSONDataWithParseOptions:(JKParseOptionFlags)parseOptionFlags;
 - (id)mutableObjectFromJSONDataWithParseOptions:(JKParseOptionFlags)parseOptionFlags error:(NSError **)error;
 @end
@@ -203,26 +201,26 @@ typedef struct JKParseState JKParseState; // Opaque internal, private type.
 // Normally, a string that is serialized to JSON has quotation marks surrounding it, which you may or may not want when serializing a single string, and can be controlled with includeQuotes:
 // includeQuotes:YES `a "test"...` -> `"a \"test\"..."`
 // includeQuotes:NO  `a "test"...` -> `a \"test\"...`
-- (NSData *)JSONData;     // Invokes JSONDataWithOptions:JKSerializeOptionNone   includeQuotes:YES
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSData *JSONData;     // Invokes JSONDataWithOptions:JKSerializeOptionNone   includeQuotes:YES
 - (NSData *)JSONDataWithOptions:(JKSerializeOptionFlags)serializeOptions includeQuotes:(BOOL)includeQuotes error:(NSError **)error;
-- (NSString *)JSONString; // Invokes JSONStringWithOptions:JKSerializeOptionNone includeQuotes:YES
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *JSONString; // Invokes JSONStringWithOptions:JKSerializeOptionNone includeQuotes:YES
 - (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions includeQuotes:(BOOL)includeQuotes error:(NSError **)error;
 @end
 
 @interface NSArray (JSONKitSerializing)
-- (NSData *)JSONData;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSData *JSONData;
 - (NSData *)JSONDataWithOptions:(JKSerializeOptionFlags)serializeOptions error:(NSError **)error;
 - (NSData *)JSONDataWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingDelegate:(id)delegate selector:(SEL)selector error:(NSError **)error;
-- (NSString *)JSONString;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *JSONString;
 - (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions error:(NSError **)error;
 - (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingDelegate:(id)delegate selector:(SEL)selector error:(NSError **)error;
 @end
 
 @interface NSDictionary (JSONKitSerializing)
-- (NSData *)JSONData;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSData *JSONData;
 - (NSData *)JSONDataWithOptions:(JKSerializeOptionFlags)serializeOptions error:(NSError **)error;
 - (NSData *)JSONDataWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingDelegate:(id)delegate selector:(SEL)selector error:(NSError **)error;
-- (NSString *)JSONString;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *JSONString;
 - (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions error:(NSError **)error;
 - (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingDelegate:(id)delegate selector:(SEL)selector error:(NSError **)error;
 @end

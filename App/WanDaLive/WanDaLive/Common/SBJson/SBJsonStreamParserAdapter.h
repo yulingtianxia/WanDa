@@ -33,11 +33,11 @@
 #import <Foundation/Foundation.h>
 #import "SBJsonStreamParser.h"
 
-typedef enum {
+typedef NS_ENUM(unsigned int, SBJsonStreamParserAdapterType) {
 	SBJsonStreamParserAdapterNone,
 	SBJsonStreamParserAdapterArray,
 	SBJsonStreamParserAdapterObject,
-} SBJsonStreamParserAdapterType;
+};
 
 /**
  @brief Delegate for getting objects & arrays from the stream parser adapter

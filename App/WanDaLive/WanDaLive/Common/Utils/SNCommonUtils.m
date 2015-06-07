@@ -25,7 +25,7 @@
     CGSize size =CGSizeMake(width,1000);
     
     //    获取当前文本的属性
-    NSDictionary * tdic = [NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil];
+    NSDictionary * tdic = @{NSFontAttributeName: font};
     //ios7方法，获取文本需要的size，限制宽度
     CGSize  actualsize =[str boundingRectWithSize:size
                                           options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading

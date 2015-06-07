@@ -13,15 +13,15 @@
 
 @interface  MJRefreshBaseView()
 // 合理的Y值
-- (CGFloat)validY;
+@property (NS_NONATOMIC_IOSONLY, readonly) CGFloat validY;
 // view的类型
-- (int)viewType;
+@property (NS_NONATOMIC_IOSONLY, readonly) int viewType;
 @end
 
 @implementation MJRefreshBaseView
 
 #pragma mark - 初始化方法
-- (id)initWithScrollView:(UIScrollView *)scrollView
+- (instancetype)initWithScrollView:(UIScrollView *)scrollView
 {
     if (self = [super init]) {
         self.scrollView = scrollView;
@@ -72,7 +72,7 @@
 }
 
 #pragma mark 构造方法
-- (id)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self initial];
     }

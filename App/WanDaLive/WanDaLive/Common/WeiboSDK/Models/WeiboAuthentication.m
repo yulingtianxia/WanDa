@@ -11,7 +11,7 @@
 @implementation WeiboAuthentication
 
 
-- (id)initWithAuthorizeURL:(NSString *)authorizeURL accessTokenURL:(NSString *)accessTokenURL
+- (instancetype)initWithAuthorizeURL:(NSString *)authorizeURL accessTokenURL:(NSString *)accessTokenURL
                     AppKey:(NSString *)appKey appSecret:(NSString *)appSecret {
     self = [super init];
     if (self) {

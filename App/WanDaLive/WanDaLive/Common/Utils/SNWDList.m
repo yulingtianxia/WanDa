@@ -11,7 +11,7 @@
 @implementation SNWDList
 @synthesize WDArray;
 
--(id)init{
+-(instancetype)init{
     if (self=[super init]) {
         SNWDLocation* cangshanWD = [[SNWDLocation alloc]initWithName:@"福州仓山万达广场‎" Location:[[CLLocation alloc]initWithLatitude:26.036753 longitude:119.2756]];
         

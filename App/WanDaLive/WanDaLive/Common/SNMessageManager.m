@@ -73,30 +73,30 @@
 {
     for (NSDictionary * dic in messagesArry) {
         //获取店铺信息
-        NSString * sid = [dic objectForKey:@"sid"];
+        NSString * sid = dic[@"sid"];
         NSMutableDictionary * shopsInfo = [SNTopModel sharedInstance].shopsInfo;
-        SNShops * shop = [shopsInfo objectForKey:sid];
-        if ([[dic objectForKey:@"type"] isEqualToString:@"credits"]) {
+        SNShops * shop = shopsInfo[sid];
+        if ([dic[@"type"] isEqualToString:@"credits"]) {
             //获得积分信息
-            NSString * credits = [dic objectForKey:@"credits"];
-            NSString * incr = [dic objectForKey:@"incr"];
+            NSString * credits = dic[@"credits"];
+            NSString * incr = dic[@"incr"];
             
             NSString * msg = [NSString stringWithFormat:@"您获得了%@积分，您目前的总积分为%@",incr,credits];
             
             [self addMessageWithTitle:@"积分" message:msg type:@"credits"];
-        }else if([[dic objectForKey:@"type"]isEqualToString:@"shop"]){
+        }else if([dic[@"type"]isEqualToString:@"shop"]){
             
-            NSString * url = [dic objectForKey:@"url"];
+            NSString * url = dic[@"url"];
             //店铺信息
             [self addMessageWithTitle:shop.name message:shop.address type:@"shop" url:url];
             
-        }else if ([[dic objectForKey:@"type"] isEqualToString:@"fixedcorner"]){
+        }else if ([dic[@"type"] isEqualToString:@"fixedcorner"]){
             //淘金角信息
-            NSString * title = [dic objectForKey:@"title"];
+            NSString * title = dic[@"title"];
             NSString * msg = [NSString stringWithFormat:@"您获得了一张优惠券，%@",title];
             [self addMessageWithTitle:shop.name message:msg type:@"fixedcorner"];
-        }else if ([[dic objectForKey:@"type"]isEqualToString:@"hunt"]){
-            NSString * subtype = [dic objectForKey:@"subtype"];
+        }else if ([dic[@"type"]isEqualToString:@"hunt"]){
+            NSString * subtype = dic[@"subtype"];
             if ([subtype isEqualToString:@"partial"]) {
                 NSString * msgStr = [NSString stringWithFormat:@"您已完成寻宝任务的%@部分，继续努力吧！",shop.name];
                 [self addMessageWithTitle:@"寻宝" message:msgStr type:@"hunt"];
@@ -111,10 +111,10 @@
 {
     for (NSDictionary * dic in array) {
         //获取店铺信息
-        NSString * sid = [dic objectForKey:@"sid"];
+        NSString * sid = dic[@"sid"];
         NSMutableDictionary * shopsInfo = [SNTopModel sharedInstance].shopsInfo;
-        SNShops * shop = [shopsInfo objectForKey:sid];
-        if ([[dic objectForKey:@"type"] isEqualToString:@"credits"]) {
+        SNShops * shop = shopsInfo[sid];
+        if ([dic[@"type"] isEqualToString:@"credits"]) {
             //获得积分信息
             NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
             
@@ -123,8 +123,8 @@
             [formatter setDateFormat:@"MM.dd HH:mm:ss"];
             [formatter setTimeZone:[NSTimeZone systemTimeZone]];
             
-            NSString * incr = [dic objectForKey:@"incr"];
-            NSString * timestamp = [dic objectForKey:@"timestamp"];
+            NSString * incr = dic[@"incr"];
+            NSString * timestamp = dic[@"timestamp"];
             NSDate * date = [SNCommonUtils dateFromTimeStemp:timestamp];
             
             NSString * title = [NSString stringWithFormat:@"%@分",incr];

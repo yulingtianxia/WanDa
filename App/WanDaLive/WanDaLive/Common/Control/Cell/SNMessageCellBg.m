@@ -21,7 +21,7 @@
 @synthesize fill_color;//cell的背景填充色
 @synthesize msg_string;//详细信息字符串
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {

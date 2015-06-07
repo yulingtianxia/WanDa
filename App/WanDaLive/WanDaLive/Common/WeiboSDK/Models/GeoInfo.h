@@ -13,7 +13,7 @@
 	double _longitude;              //经度
 }
 
-- (id)initWithJsonDictionary:(NSDictionary*)dic;
+- (instancetype)initWithJsonDictionary:(NSDictionary*)dic NS_DESIGNATED_INITIALIZER;
 
 
 @property (nonatomic, assign) double latitude;  //纬度

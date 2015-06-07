@@ -98,11 +98,6 @@
 		6336E2F218580F88003D5F47 /* SNAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6336E2F118580F88003D5F47 /* SNAppDelegate.m */; };
 		6336E2F518580F88003D5F47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6336E2F318580F88003D5F47 /* Main.storyboard */; };
 		6336E2F818580F88003D5F47 /* SNViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6336E2F718580F88003D5F47 /* SNViewController.m */; };
-		6336E30118580F88003D5F47 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6336E30018580F88003D5F47 /* XCTest.framework */; };
-		6336E30218580F88003D5F47 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6336E2E118580F88003D5F47 /* Foundation.framework */; };
-		6336E30318580F88003D5F47 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6336E2E518580F88003D5F47 /* UIKit.framework */; };
-		6336E30B18580F88003D5F47 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6336E30918580F88003D5F47 /* InfoPlist.strings */; };
-		6336E30D18580F88003D5F47 /* WanDaLiveTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6336E30C18580F88003D5F47 /* WanDaLiveTests.m */; };
 		6373F773185831D300F5CD8C /* SNSharedResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6373F772185831D300F5CD8C /* SNSharedResource.m */; };
 		6373F7761858321000F5CD8C /* SNMessageCellBg.m in Sources */ = {isa = PBXBuildFile; fileRef = 6373F7751858321000F5CD8C /* SNMessageCellBg.m */; };
 		6373F778185832DD00F5CD8C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6373F777185832DD00F5CD8C /* AVFoundation.framework */; };
@@ -117,16 +112,6 @@
 		63B475C3185998AB00DA33D8 /* SNMovableGoldCornerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B475C2185998AB00DA33D8 /* SNMovableGoldCornerViewController.m */; };
 		63B96B13185ABB2400DA9E22 /* SNMyCreditsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B96B12185ABB2400DA9E22 /* SNMyCreditsCell.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		6336E30418580F88003D5F47 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6336E2D618580F88003D5F47 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6336E2DD18580F88003D5F47;
-			remoteInfo = WanDaLive;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		28264137185EA9580027090C /* SNCreditRuleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNCreditRuleCell.h; sourceTree = "<group>"; };
@@ -304,7 +289,6 @@
 		6336E2F418580F88003D5F47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6336E2F618580F88003D5F47 /* SNViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNViewController.h; sourceTree = "<group>"; };
 		6336E2F718580F88003D5F47 /* SNViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNViewController.m; sourceTree = "<group>"; };
-		6336E2FF18580F88003D5F47 /* WanDaLiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WanDaLiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6336E30018580F88003D5F47 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6336E30818580F88003D5F47 /* WanDaLiveTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WanDaLiveTests-Info.plist"; sourceTree = "<group>"; };
 		6336E30A18580F88003D5F47 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -347,16 +331,6 @@
 				6336E2E418580F88003D5F47 /* CoreGraphics.framework in Frameworks */,
 				6336E2E618580F88003D5F47 /* UIKit.framework in Frameworks */,
 				6336E2E218580F88003D5F47 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6336E2FC18580F88003D5F47 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6336E30118580F88003D5F47 /* XCTest.framework in Frameworks */,
-				6336E30318580F88003D5F47 /* UIKit.framework in Frameworks */,
-				6336E30218580F88003D5F47 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -710,7 +684,6 @@
 			isa = PBXGroup;
 			children = (
 				6336E2DE18580F88003D5F47 /* WanDaLive.app */,
-				6336E2FF18580F88003D5F47 /* WanDaLiveTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -816,24 +789,6 @@
 			productReference = 6336E2DE18580F88003D5F47 /* WanDaLive.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6336E2FE18580F88003D5F47 /* WanDaLiveTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6336E31318580F88003D5F47 /* Build configuration list for PBXNativeTarget "WanDaLiveTests" */;
-			buildPhases = (
-				6336E2FB18580F88003D5F47 /* Sources */,
-				6336E2FC18580F88003D5F47 /* Frameworks */,
-				6336E2FD18580F88003D5F47 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6336E30518580F88003D5F47 /* PBXTargetDependency */,
-			);
-			name = WanDaLiveTests;
-			productName = WanDaLiveTests;
-			productReference = 6336E2FF18580F88003D5F47 /* WanDaLiveTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -845,15 +800,12 @@
 				ORGANIZATIONNAME = "David Yang";
 				TargetAttributes = {
 					6336E2DD18580F88003D5F47 = {
-						DevelopmentTeam = 72K9479UJ5;
+						DevelopmentTeam = D3RCVUP6VH;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
 							};
 						};
-					};
-					6336E2FE18580F88003D5F47 = {
-						TestTargetID = 6336E2DD18580F88003D5F47;
 					};
 				};
 			};
@@ -871,7 +823,6 @@
 			projectRoot = "";
 			targets = (
 				6336E2DD18580F88003D5F47 /* WanDaLive */,
-				6336E2FE18580F88003D5F47 /* WanDaLiveTests */,
 			);
 		};
 /* End PBXProject section */
@@ -893,14 +844,6 @@
 				28A6F5E81859991C00A216CE /* Images.xcassets in Resources */,
 				28A6F5AA185820C100A216CE /* CHANGELOG.md in Resources */,
 				6336E2F518580F88003D5F47 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6336E2FD18580F88003D5F47 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6336E30B18580F88003D5F47 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -998,23 +941,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6336E2FB18580F88003D5F47 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6336E30D18580F88003D5F47 /* WanDaLiveTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		6336E30518580F88003D5F47 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6336E2DD18580F88003D5F47 /* WanDaLive */;
-			targetProxy = 6336E30418580F88003D5F47 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6336E2EA18580F88003D5F47 /* InfoPlist.strings */ = {
@@ -1144,48 +1071,6 @@
 			};
 			name = Release;
 		};
-		6336E31418580F88003D5F47 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WanDaLive.app/WanDaLive";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WanDaLive/WanDaLive-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "WanDaLiveTests/WanDaLiveTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		6336E31518580F88003D5F47 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WanDaLive.app/WanDaLive";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WanDaLive/WanDaLive-Prefix.pch";
-				INFOPLIST_FILE = "WanDaLiveTests/WanDaLiveTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1203,15 +1088,6 @@
 			buildConfigurations = (
 				6336E31118580F88003D5F47 /* Debug */,
 				6336E31218580F88003D5F47 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6336E31318580F88003D5F47 /* Build configuration list for PBXNativeTarget "WanDaLiveTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6336E31418580F88003D5F47 /* Debug */,
-				6336E31518580F88003D5F47 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

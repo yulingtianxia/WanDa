@@ -26,7 +26,7 @@ static Weibo *g_weibo = nil;
 
 @implementation Weibo
 
-- (id)initWithAppKey:(NSString *)appKey
+- (instancetype)initWithAppKey:(NSString *)appKey
        withAppSecret:(NSString *)appSecret {
     self = [super init];
     if (self) {
@@ -250,9 +250,9 @@ static Weibo *g_weibo = nil;
                            completed:(WeiboNewStatusCompletedBlock)completedBlock {
     NSString *path = picData.length ? @"statuses/upload.json" : @"statuses/update.json";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:status forKey:@"status"];
+    params[@"status"] = status;
     if (picData.length) {
-        [params setObject:picData forKey:@"pic"];
+        params[@"pic"] = picData;
     }
     WeiboRequestOperation *operation =
     [[WeiboRequest shared] postToPath:path

@@ -17,7 +17,7 @@
 
 @implementation SNCouponCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -41,7 +41,7 @@
     // UIImage *image = [[UIImage alloc] init];
     NSString * sid = model.sid;
     NSMutableDictionary * shopsInfo = [SNTopModel sharedInstance].shopsInfo;
-    SNShops * shop = [shopsInfo objectForKey:sid];
+    SNShops * shop = shopsInfo[sid];
     
     self.lblTime.text = [model getTimeStr];
     self.lblTime.font = [[SNSharedResource sharedInstance] commonLargerFont];

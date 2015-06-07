@@ -37,7 +37,7 @@
 @synthesize maxDepth;
 @synthesize error;
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self)
         self.maxDepth = 32u;
@@ -90,7 +90,7 @@
         return tmp;
     
     if (error_) {
-		NSDictionary *ui = [NSDictionary dictionaryWithObjectsAndKeys:error, NSLocalizedDescriptionKey, nil];
+		NSDictionary *ui = @{NSLocalizedDescriptionKey: error};
         *error_ = [NSError errorWithDomain:@"org.brautaset.SBJsonParser.ErrorDomain" code:0 userInfo:ui];
 	}
 	

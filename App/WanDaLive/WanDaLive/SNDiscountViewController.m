@@ -27,13 +27,13 @@
 @property (nonatomic,strong) SNRequest * deleteCouponRequest;
 @property (nonatomic,strong) NSIndexPath* deletedIndexPath;
 
-- (NSMutableArray *)getDataSource;
+@property (NS_NONATOMIC_IOSONLY, getter=getDataSource, readonly, copy) NSMutableArray *dataSource;
 
 @end
 
 @implementation SNDiscountViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -130,7 +130,7 @@
 
 - (void)onUseButton:(UIButton *)sender {
     NSMutableArray *coupons = [self getDataSource];
-    SNCoupons * item = [coupons objectAtIndex:sender.tag];
+    SNCoupons * item = coupons[sender.tag];
     [self onDeleteCoupons:item];
     _deletedIndexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
 }
@@ -187,13 +187,13 @@
     if(request == self.deleteCouponRequest){
         NSDictionary * dic = (NSDictionary *) result;
         NSLog(@"%@",dic);
-        if ([[dic objectForKey:@"results"] boolValue]) {
+        if ([dic[@"results"] boolValue]) {
             if([SNGlobalTrigger sharedInstance].isInVerifyArea){
                 [[SNTopModel sharedInstance].useableCoupons removeObjectAtIndex:_deletedIndexPath.row];
             }else{
                 [[SNTopModel sharedInstance].coupons removeObjectAtIndex:_deletedIndexPath.row];
             }
-            [self.couponTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:_deletedIndexPath]withRowAnimation:YES];
+            [self.couponTableView deleteRowsAtIndexPaths:@[_deletedIndexPath]withRowAnimation:YES];
         }
         [self.couponTableView reloadData];
     }
@@ -293,7 +293,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSMutableArray *coupons = [self getDataSource];
-        SNCoupons * item = [coupons objectAtIndex:indexPath.row];
+        SNCoupons * item = coupons[indexPath.row];
         [self onDeleteCoupons:item];
         _deletedIndexPath = indexPath;
     }

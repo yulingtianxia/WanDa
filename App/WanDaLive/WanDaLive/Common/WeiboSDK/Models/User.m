@@ -19,7 +19,7 @@
 //===========================================================
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
-    [encoder encodeObject:[NSNumber numberWithLongLong:self.userId] forKey:@"userId"];
+    [encoder encodeObject:@(self.userId) forKey:@"userId"];
     [encoder encodeObject:self.screenName forKey:@"screenName"];
     [encoder encodeObject:self.name forKey:@"name"];
     [encoder encodeObject:self.province forKey:@"province"];
@@ -49,7 +49,7 @@
     [encoder encodeInt:self.onlineStatus forKey:@"onlineStatus"];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder
+- (instancetype)initWithCoder:(NSCoder *)decoder
 {
     self = [super init];
     if (self) {
@@ -85,7 +85,7 @@
     return self;
 }
 
-- (id)initWithJsonDictionary:(NSDictionary*)dic
+- (instancetype)initWithJsonDictionary:(NSDictionary*)dic
 {
 	self = [super init];
     if (self) {

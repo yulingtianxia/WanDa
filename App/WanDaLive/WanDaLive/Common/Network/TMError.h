@@ -45,6 +45,6 @@
 
 @interface NSError (geterrormsg)
 
-- (NSString *)err_msg;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *err_msg;
 
 @end

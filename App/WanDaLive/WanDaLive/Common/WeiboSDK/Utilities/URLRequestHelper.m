@@ -13,10 +13,10 @@ NSString *kUserAgent = @"Openlab WeiboSDK";
 
 @interface FileInfo : NSObject
 
-- (id)initWithKey:(NSString *)key
+- (instancetype)initWithKey:(NSString *)key
          filename:(NSString *)filename
       contentType:(NSString *)contentType
-             data:(NSData *)data;
+             data:(NSData *)data NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, copy) NSString *key;
 @property (nonatomic, copy) NSString *fileName;
@@ -27,7 +27,7 @@ NSString *kUserAgent = @"Openlab WeiboSDK";
 
 @implementation FileInfo
 
-- (id)initWithKey:(NSString *)key
+- (instancetype)initWithKey:(NSString *)key
          filename:(NSString *)filename
       contentType:(NSString *)contentType
              data:(NSData *)data {
@@ -46,7 +46,7 @@ NSString *kUserAgent = @"Openlab WeiboSDK";
 
 @interface PostItem : NSObject
 
-- (id)initWithKey:(NSString *)key value:(NSString *)value;
+- (instancetype)initWithKey:(NSString *)key value:(NSString *)value NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, copy) NSString *key;
 @property (nonatomic, copy) NSString *value;
@@ -55,7 +55,7 @@ NSString *kUserAgent = @"Openlab WeiboSDK";
 
 @implementation PostItem
 
-- (id)initWithKey:(NSString *)key value:(NSString *)value {
+- (instancetype)initWithKey:(NSString *)key value:(NSString *)value {
     self = [super init];
     if (self) {
         self.key = key;
@@ -86,10 +86,10 @@ NSString *kUserAgent = @"Openlab WeiboSDK";
     
     NSMutableArray* pairs = [NSMutableArray array];
     for (NSString* key in [params keyEnumerator]) {
-        if ([[params objectForKey:key] isKindOfClass:[NSData class]]) {
+        if ([params[key] isKindOfClass:[NSData class]]) {
             continue;
         }
-        NSString *value = [params objectForKey:key];
+        NSString *value = params[key];
         
         [pairs addObject:[NSString stringWithFormat:@"%@=%@", [self encodeURL:key], [self encodeURL:value]]];
     }
@@ -138,7 +138,7 @@ NSString *kUserAgent = @"Openlab WeiboSDK";
     NSMutableArray *postData = [NSMutableArray array];
     NSMutableArray *fileData = [NSMutableArray array];
     for (NSString* key in [params keyEnumerator]) {
-        id val = [params objectForKey:key];
+        id val = params[key];
         if ([val isKindOfClass:[NSData class]]) {
             NSString *contentType = [self contentTypeForImageData:val];
             if (contentType) {

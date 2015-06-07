@@ -31,7 +31,7 @@
 @property (nonatomic,strong) NSString* beacons;
 @property (nonatomic,strong) NSString* time;
 @property (nonatomic,strong) NSString* IsCompleted;
-- (id) initWithCoder: (NSCoder *)coder;
+- (instancetype) initWithCoder: (NSCoder *)coder NS_DESIGNATED_INITIALIZER;
 - (void) encodeWithCoder: (NSCoder *)coder;
 + (NSMutableArray *) getInstanceFrom: (NSDictionary*) dict;
 
@@ -48,8 +48,8 @@
 @property (nonatomic,strong) NSString* startTime;
 @property (nonatomic,strong) NSString* endTime;
 
-- (NSString *)getTimeStr;
-- (BOOL)isOutOfDate;
+@property (NS_NONATOMIC_IOSONLY, getter=getTimeStr, readonly, copy) NSString *timeStr;
+@property (NS_NONATOMIC_IOSONLY, getter=isOutOfDate, readonly) BOOL outOfDate;
 
 
 + (SNCoupons *) getInstanceFrom: (NSDictionary*) dict;

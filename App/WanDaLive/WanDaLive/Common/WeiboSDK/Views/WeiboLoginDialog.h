@@ -14,8 +14,8 @@
 
 @interface WeiboLoginDialog : WeiboDialog
 
--(id) initWithURL:(NSURL *) loginURL
-         delegate:(id <WeiboLoginDialogDelegate>) delegate;
+-(instancetype) initWithURL:(NSURL *) loginURL
+         delegate:(id <WeiboLoginDialogDelegate>) delegate NS_DESIGNATED_INITIALIZER;
 
 @end
 

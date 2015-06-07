@@ -11,5 +11,5 @@
 @interface SNWDLocation : NSObject
 @property NSString * Name;
 @property CLLocation *WDLoc;
--(id)initWithName:(NSString*) name Location:(CLLocation *)loc;
+-(instancetype)initWithName:(NSString*) name Location:(CLLocation *)loc NS_DESIGNATED_INITIALIZER;
 @end

@@ -102,7 +102,7 @@
 @property (readonly) BOOL servicing;
 
 //获取现在的范围内的传感器。
-- (NSArray*) getCurSensors;
+@property (NS_NONATOMIC_IOSONLY, getter=getCurSensors, readonly, copy) NSArray *curSensors;
 
 //启动服务
 - (void) initService;

@@ -16,7 +16,7 @@
 
 @implementation SNBindingViewController
 @synthesize bindingAccountRequest;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -75,9 +75,9 @@
     if (result!=NULL&&request==bindingAccountRequest) {
         //此处别忘记获取返回的用户id，并写入UserDefaults和SNTopModel
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-        [ud setObject:[((NSDictionary*)result) objectForKey:@"id"] forKey:@"UID"];
+        [ud setObject:((NSDictionary*)result)[@"id"] forKey:@"UID"];
         [ud synchronize];
-        [SNTopModel sharedInstance].userInfo.userID=[((NSDictionary*)result) objectForKey:@"id"];
+        [SNTopModel sharedInstance].userInfo.userID=((NSDictionary*)result)[@"id"];
         UIAlertView *av = [[UIAlertView alloc]initWithTitle:@"恭喜" message:@"微博绑定成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [av setAlertViewStyle:UIAlertViewStyleDefault];
         [av show];

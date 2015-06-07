@@ -12,7 +12,7 @@
 @interface SNWeiboAlert ()
 
 @property (nonatomic, strong) NSString * weiboMsg;
-- (UIView *)createDemoView;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) UIView *createDemoView;
 
 @end
 

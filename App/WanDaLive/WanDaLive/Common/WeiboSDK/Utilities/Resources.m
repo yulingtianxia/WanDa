@@ -12,7 +12,7 @@ static NSMutableDictionary *gProvinces = nil;
 
 @interface Province : NSObject
 
-- (id)initWithDictionary:(NSDictionary *)dict;
+- (instancetype)initWithDictionary:(NSDictionary *)dict NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, retain) NSString *provinceId;
@@ -23,16 +23,16 @@ static NSMutableDictionary *gProvinces = nil;
 
 @implementation Province
 
-- (id)initWithDictionary:(NSDictionary *)dict {
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
     self = [super init];
     if (self) {
-        self.provinceId = [[dict objectForKey:@"id"]stringValue];
-        self.name = [dict objectForKey:@"name"];
+        self.provinceId = [dict[@"id"]stringValue];
+        self.name = dict[@"name"];
         self.cities = [NSMutableDictionary dictionary];
-        NSArray *cityArray = [dict objectForKey:@"citys"];
+        NSArray *cityArray = dict[@"citys"];
         for (NSDictionary *cityDic in cityArray) {
             for (NSString *key in cityDic.allKeys) {
-                [self.cities setObject:[cityDic objectForKey:key] forKey:key];
+                (self.cities)[key] = cityDic[key];
             }
         }
     }
@@ -50,7 +50,7 @@ static NSMutableDictionary *gProvinces = nil;
     [encoder encodeObject:self.cities forKey:@"cities"];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder
+- (instancetype)initWithCoder:(NSCoder *)decoder
 {
     self = [super init];
     if (self) {
@@ -81,11 +81,11 @@ static NSMutableDictionary *gProvinces = nil;
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&e];
 
         if (!e && dic) {
-            NSArray *provinces = [dic objectForKey:@"provinces"];
+            NSArray *provinces = dic[@"provinces"];
             if (provinces) {
                 for (NSDictionary *provinceDic in provinces) {
                     Province *province = [[Province alloc]initWithDictionary:provinceDic];
-                    [gProvinces setObject:province forKey:province.provinceId];
+                    gProvinces[province.provinceId] = province;
                 }
             }
         }
@@ -96,7 +96,7 @@ static NSMutableDictionary *gProvinces = nil;
 
 + (NSString *)getProvinceName:(NSString *)provinceId {
 	NSMutableDictionary *provinces = [[self class] provinces];
-	Province *p = [provinces objectForKey:provinceId];
+	Province *p = provinces[provinceId];
 	if (p) {
 		return p.name;
 	}
@@ -106,10 +106,10 @@ static NSMutableDictionary *gProvinces = nil;
 + (NSString *)getCityNameWithProvinceId:(NSString *)provinceId
 							 withCityId:(NSString *)cityId {
 	NSMutableDictionary *provinces = [[self class] provinces];
-	Province *p = [provinces objectForKey:provinceId];
+	Province *p = provinces[provinceId];
 	NSString *cityName = nil;
 	if (p) {
-		cityName = [p.cities objectForKey:cityId];
+		cityName = (p.cities)[cityId];
 	}
 	if (!cityName) {
 		cityName = @"";

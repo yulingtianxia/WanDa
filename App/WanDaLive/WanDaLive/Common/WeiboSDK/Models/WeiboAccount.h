@@ -13,8 +13,8 @@
 // 登录帐号信息
 @interface WeiboAccount : NSObject<NSCoding>
 
-- (id)initWithAuthentication:(WeiboAuthentication *)auth
-                        user:(User *)user;
+- (instancetype)initWithAuthentication:(WeiboAuthentication *)auth
+                        user:(User *)user NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, copy) NSString *userId; //用户Id
 @property (nonatomic, copy) NSString *accessToken; //授权凭证

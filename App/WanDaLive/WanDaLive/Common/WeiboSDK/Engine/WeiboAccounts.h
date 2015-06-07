@@ -19,7 +19,7 @@
 
 @property (nonatomic, assign) WeiboAccount *currentAccount;
 
-- (NSMutableArray *)accounts;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMutableArray *accounts;
 
 - (void)loadWeiboAccounts;
 

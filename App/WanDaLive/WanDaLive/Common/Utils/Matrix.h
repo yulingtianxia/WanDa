@@ -42,8 +42,8 @@ MySize MySizeMake(size_t x,size_t y){
 	char * data;
 }
 
--(id)initWithMaxX:(size_t)x MaxY:(size_t)y;
--(id)initWithMax:(MySize) maxCoords;
+-(instancetype)initWithMaxX:(size_t)x MaxY:(size_t)y NS_DESIGNATED_INITIALIZER;
+-(instancetype)initWithMax:(MySize) maxCoords;
 -(char)valueForCoordinates:(size_t)x y:(size_t)y;
 -(void)setValue:(char)value forCoordinates:(size_t)x y:(size_t)y;
 -(void)fillWithValue:(char)value;

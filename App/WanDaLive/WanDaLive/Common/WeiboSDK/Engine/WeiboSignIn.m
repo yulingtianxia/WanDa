@@ -24,7 +24,7 @@ NSString *const WeiboOAuth2ErrorDomain = @"com.openlab.weiboSDK.OAuth2";
 }
 
 
-- (id)initWithWeiboAuthentication:(WeiboAuthentication *)authentication
+- (instancetype)initWithWeiboAuthentication:(WeiboAuthentication *)authentication
                         withBlock:(WeiboSignedInBlock)signedInBlock {
     self = [super init];
     if (self) {
@@ -55,11 +55,11 @@ NSString *const WeiboOAuth2ErrorDomain = @"com.openlab.weiboSDK.OAuth2";
     _loginDialog = nil; // 
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:self.authentication.appKey forKey:@"client_id"];
-    [params setObject:self.authentication.appSecret forKey:@"client_secret"];
-    [params setObject:self.authentication.redirectURI forKey:@"redirect_uri"];
-    [params setObject:code forKey:@"code"];
-    [params setObject:@"authorization_code" forKey:@"grant_type"];
+    params[@"client_id"] = self.authentication.appKey;
+    params[@"client_secret"] = self.authentication.appSecret;
+    params[@"redirect_uri"] = self.authentication.redirectURI;
+    params[@"code"] = code;
+    params[@"grant_type"] = @"authorization_code";
     
     _requestOperation = [[WeiboRequest shared]
                          postToUrl:self.authentication.accessTokenURL params:params
@@ -74,9 +74,9 @@ NSString *const WeiboOAuth2ErrorDomain = @"com.openlab.weiboSDK.OAuth2";
        {
            NSDictionary *dict = (NSDictionary *)result;
            
-           NSString *accessToken = [dict objectForKey:@"access_token"];
-           NSString *userId = [dict objectForKey:@"uid"];
-           int expiresIn = [[dict objectForKey:@"expires_in"] intValue];
+           NSString *accessToken = dict[@"access_token"];
+           NSString *userId = dict[@"uid"];
+           int expiresIn = [dict[@"expires_in"] intValue];
            
            if (accessToken.length > 0 && userId.length > 0) {
                self.authentication.accessToken = accessToken;
@@ -88,9 +88,7 @@ NSString *const WeiboOAuth2ErrorDomain = @"com.openlab.weiboSDK.OAuth2";
        }
        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
        
-       NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 [NSString stringWithFormat:@"Failed to parse response data: \r\n%@",responseString],NSLocalizedDescriptionKey,
-                                 nil];
+       NSDictionary *userInfo = @{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Failed to parse response data: \r\n%@",responseString]};
        self.signedInBlock(nil, [NSError errorWithDomain:WeiboOAuth2ErrorDomain code:kWeiboOAuth2ErrorTokenUnavailable userInfo:userInfo]);
     }];
 }

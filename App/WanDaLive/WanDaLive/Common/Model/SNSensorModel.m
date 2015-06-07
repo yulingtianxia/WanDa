@@ -17,7 +17,7 @@
     
     NSNull * null = [NSNull null];
     
-    id temp = [dict objectForKey:ID_KEY];
+    id temp = dict[ID_KEY];
     if (temp == nil ||
         temp == null) {
         return nil;//没有ID是致命缺陷。
@@ -25,48 +25,48 @@
         model.bid = temp;
     }
     
-    temp = [dict objectForKey:GOODS_KEY];
+    temp = dict[GOODS_KEY];
     if (temp != nil &&
         temp != null &&
         [temp isKindOfClass:[NSDictionary class]]) {
         model.isGoodsShow = YES;
         
-        model.goodsShowTimer = [[temp objectForKey:TIMER_KEY] integerValue];
-        model.goodsShowDist = [[temp objectForKey:RANGE_KEY] doubleValue];
-        model.goodsUrl = [temp objectForKey:URL_KEY];
+        model.goodsShowTimer = [temp[TIMER_KEY] integerValue];
+        model.goodsShowDist = [temp[RANGE_KEY] doubleValue];
+        model.goodsUrl = temp[URL_KEY];
     }
     
-    temp = [dict objectForKey:CREDITS_KEY];
+    temp = dict[CREDITS_KEY];
     if (temp != nil &&
         temp != null &&
         [temp isKindOfClass:[NSDictionary class]]) {
         model.isCredits = YES;
         
-        model.creditsTimer = [[temp objectForKey:TIMER_KEY] integerValue];
+        model.creditsTimer = [temp[TIMER_KEY] integerValue];
         model.creditsDist = 100;//默认100米内触发。
     }
     
-    temp = [dict objectForKey:CORNER_KEY];
+    temp = dict[CORNER_KEY];
     if (temp != nil &&
         temp != null &&
         [temp isKindOfClass:[NSDictionary class]]) {
         model.isGoldCorner = YES;
         
-        model.goldCornerDist = [[temp objectForKey:RANGE_KEY] integerValue];
+        model.goldCornerDist = [temp[RANGE_KEY] integerValue];
     }
     
-    temp = [dict objectForKey:MOVABLE_CORNER_KEY];
+    temp = dict[MOVABLE_CORNER_KEY];
     if (temp != nil &&
         temp != null &&
         [temp isKindOfClass:[NSDictionary class]]) {
         model.isMovableGoldCorner = YES;
         
-        model.movableGoldCornerDist = [[temp objectForKey:RANGE_KEY] integerValue];
-        model.movableGoldCornerTimer = [[temp objectForKey:TIMER_KEY] integerValue];
+        model.movableGoldCornerDist = [temp[RANGE_KEY] integerValue];
+        model.movableGoldCornerTimer = [temp[TIMER_KEY] integerValue];
     }
     
     if (model.isGoldCorner != YES && model.isMovableGoldCorner != YES) {
-        temp = [dict objectForKey:SID_KEY];
+        temp = dict[SID_KEY];
         if (temp == nil ||
             temp == null) {
             return nil;//没有ID是致命缺陷。
@@ -75,17 +75,17 @@
         }
     }
     
-    temp = [dict objectForKey:TASK_KEY];
+    temp = dict[TASK_KEY];
     if (temp != nil &&
         temp != null &&
         [temp isKindOfClass:[NSDictionary class]]) {
         model.isTask = YES;
         
-        model.taskDist = [[temp objectForKey:RANGE_KEY] integerValue];
+        model.taskDist = [temp[RANGE_KEY] integerValue];
         if (model.taskDist == 0) {
             model.taskDist = 100;
         }
-        model.taskTimer = [[temp objectForKey:TIMER_KEY] integerValue];
+        model.taskTimer = [temp[TIMER_KEY] integerValue];
     }
 
     model.isVerify = YES;

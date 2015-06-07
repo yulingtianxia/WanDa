@@ -87,7 +87,7 @@
 
 - (void) sendTaskCompleteRequest: (NSString*) sid{
     
-    SNRequest * huntTreasureRequest = [self.taskCompleteRequest objectForKey:sid];
+    SNRequest * huntTreasureRequest = (self.taskCompleteRequest)[sid];
 
     if (huntTreasureRequest == nil) {
         SNRequest * huntTreasureRequest = [SNRequest getPutRequestWithParams:nil
@@ -102,7 +102,7 @@
             self.taskCompleteRequest = [NSMutableDictionary dictionaryWithCapacity:10];
         }
         
-        [self.taskCompleteRequest setObject:huntTreasureRequest forKey:sid];
+        (self.taskCompleteRequest)[sid] = huntTreasureRequest;
     }
 }
 
@@ -130,12 +130,12 @@
         self.goodsRequest = nil;
         NSLog(@"goods result failed");
     }else if ( sids.count > 0){
-        [self.taskCompleteRequest removeObjectForKey:[sids objectAtIndex:0]];
+        [self.taskCompleteRequest removeObjectForKey:sids[0]];
         NSLog(@"hunt complete request result failed");
     }else{
         NSLog(@"beacon request result failed");
         for(NSString * iter in self.sensorRequest.allKeys){
-            SNRequest * temp = [self.sensorRequest objectForKey:iter];
+            SNRequest * temp = (self.sensorRequest)[iter];
             if (temp == request) {
                 [self.sensorRequest removeObjectForKey:iter];
                 break;
@@ -154,10 +154,10 @@
         
         NSLog(@"goods result : %@",result);
         
-        NSDictionary * dict = [result objectForKey:SHOP_KEY];
+        NSDictionary * dict = result[SHOP_KEY];
         
         if (dict != nil) {
-            NSString * name = [dict objectForKey:NAME_KEY];
+            NSString * name = dict[NAME_KEY];
             
             NSDictionary* dict = request.exactInfo;
             if ([dict isKindOfClass:[NSDictionary class]]) {
@@ -173,10 +173,10 @@
         
         [[SNMessageManager sharedInstance] updateMessageNumber:1];
     }else if ([taskSids count] > 0){
-        [self.taskCompleteRequest removeObjectForKey:[taskSids objectAtIndex:0]];
+        [self.taskCompleteRequest removeObjectForKey:taskSids[0]];
 
-        if ([result objectForKey:@"outcome"]!=[NSNull null]) {
-            NSString * outcome = [NSString stringWithString:[result objectForKey:@"outcome"]] ;
+        if (result[@"outcome"]!=[NSNull null]) {
+            NSString * outcome = [NSString stringWithString:result[@"outcome"]] ;
             if ([outcome isEqualToString:@"have already accomplished"]) {
                 //该店铺之前已经完成
                 NSLog(@"have already accomplished");
@@ -194,33 +194,33 @@
         NSMutableArray* arr = [NSMutableArray arrayWithCapacity:arrdata.count];
         NSMutableArray* newarrdata = [NSMutableArray arrayWithCapacity:arrdata.count];
         for (int i = 0;i<arrdata.count; i++) {
-            SNShops *shop = [NSKeyedUnarchiver unarchiveObjectWithData:[arrdata objectAtIndex:i]];
+            SNShops *shop = [NSKeyedUnarchiver unarchiveObjectWithData:arrdata[i]];
             [arr addObject:shop];
         }
         for (int i=0; i<arr.count; i++) {
-            if ([((SNShops*)[arr objectAtIndex:i]).sid isEqualToString:[taskSids objectAtIndex:0]]) {
-                ((SNShops*)[arr objectAtIndex:i]).IsCompleted=@"YES";
+            if ([((SNShops*)arr[i]).sid isEqualToString:taskSids[0]]) {
+                ((SNShops*)arr[i]).IsCompleted=@"YES";
             }
-            [newarrdata addObject:[NSKeyedArchiver archivedDataWithRootObject:(SNShops*)[arr objectAtIndex:i]]];
+            [newarrdata addObject:[NSKeyedArchiver archivedDataWithRootObject:(SNShops*)arr[i]]];
         }
         
         [shops setObject:newarrdata forKey:@"shops"];//将更新完成状态后的shop存入
         
         for (id<SNBusinessTrigger> del in self.watcheres) {
             if ([del respondsToSelector:@selector(taskComplete:)]) {
-                [del taskComplete:[taskSids objectAtIndex:0]];
+                [del taskComplete:taskSids[0]];
             }
         }
     } else {
         for(NSString * iter in self.sensorRequest.allKeys){
-            SNRequest * temp = [self.sensorRequest objectForKey:iter];
+            SNRequest * temp = (self.sensorRequest)[iter];
             if (temp == request) {
                 [self.sensorRequest removeObjectForKey:iter];
 
                 NSDictionary * dict = (NSDictionary*)result;
                 SNSensorModel * model = [SNSensorModel getInstanceFrom:dict];
                 
-                if ([[SNTopModel sharedInstance].sensors objectForKey:model.bid] == nil) {
+                if (([SNTopModel sharedInstance].sensors)[model.bid] == nil) {
                     [[SNTopModel sharedInstance] addSensorModel:model key:model.bid];
                     [self processSensorModel:model];
                 };
@@ -257,12 +257,12 @@
         NSLog(@"find beacon %@",findKey);
         //if ([findKey isEqualToString:key]) {
             
-            SNSensorModel * model = [[SNTopModel sharedInstance].sensors objectForKey:findKey];
+            SNSensorModel * model = ([SNTopModel sharedInstance].sensors)[findKey];
             
             if (model != nil) {//如果找到了，则处理Model。
                 [self processSensorModel:model];
             }else{
-                SNRequest * request = [self.sensorRequest objectForKey:findKey];
+                SNRequest * request = (self.sensorRequest)[findKey];
                 if (request == nil) {//如果没有正在请求此Beacon的信息，则获取其信息。
                     request = [SNRequest getRequestWithParams:nil
                                                      delegate:self
@@ -273,7 +273,7 @@
                         self.sensorRequest = [NSMutableDictionary dictionaryWithCapacity:5];
                     }
                     
-                    [self.sensorRequest setObject:request forKey:findKey];
+                    (self.sensorRequest)[findKey] = request;
                 }
             }
         //}
@@ -303,7 +303,7 @@
                               sensors.uuid,sensors.major,sensors.minor];
         
         NSDictionary * dict = [SNTopModel sharedInstance].sensors;
-        SNSensorModel * model = [dict objectForKey:findKey];
+        SNSensorModel * model = dict[findKey];
         
         if (model != nil) {
             [[SNGlobalTrigger sharedInstance] sendCreditsRequest:model.sid];
@@ -315,7 +315,7 @@
         
         NSArray* sids = [self.taskTrigger allKeysForObject:triger];
         if (sids.count > 0) {
-            [self sendTaskCompleteRequest:[sids objectAtIndex:0]];
+            [self sendTaskCompleteRequest:sids[0]];
         }
     }else if([[self.goodsTrigger allKeysForObject:triger] count] > 0){
         NSLog(@"goods show timer was triggered!\n");
@@ -324,12 +324,11 @@
                               sensors.uuid,sensors.major,sensors.minor];
 
         NSDictionary * dict = [SNTopModel sharedInstance].sensors;
-        SNSensorModel * model = [dict objectForKey:findKey];
+        SNSensorModel * model = dict[findKey];
         
         if (model != nil) {
             NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithCapacity:1];
-            [dict setObject:model.goodsUrl
-                     forKey:@"url"];
+            dict[@"url"] = model.goodsUrl;
             [self sendGoodsRequest:model.sid bid:findKey userInfo:dict];
         }
     }else if(self.movableCornerTrigger == triger){
@@ -371,7 +370,7 @@
                               sensors.uuid,sensors.major,sensors.minor];
         
         NSDictionary * dict = [SNTopModel sharedInstance].sensors;
-        SNSensorModel * model = [dict objectForKey:findKey];
+        SNSensorModel * model = dict[findKey];
         
         if (model != nil) {
             _verifySID = model.sid;
@@ -484,8 +483,7 @@
             self.goldCornerTrigger = [[SNTrigger alloc] init];
             
             self.goldCornerTrigger.triggerSensores = [NSMutableDictionary dictionaryWithCapacity:5];
-            [self.goldCornerTrigger.triggerSensores setObject:[NSNumber numberWithInt:1]
-                                                       forKey:model.bid];
+            (self.goldCornerTrigger.triggerSensores)[model.bid] = @1;
             self.goldCornerTrigger.stayDistLimit = model.goldCornerDist;
             self.goldCornerTrigger.stayTimeLimit = 0;//不需要时间激活。
             self.goldCornerTrigger.watcher = self;
@@ -493,8 +491,7 @@
             [[SensoroAnswer sharedInstance] addTrigger:self.goldCornerTrigger];
         }else{
             //向淘金角Trigger中添加新的
-            [self.goldCornerTrigger.triggerSensores setObject:[NSNumber numberWithInt:1]
-                                                       forKey:model.bid];
+            (self.goldCornerTrigger.triggerSensores)[model.bid] = @1;
         }
     }
     
@@ -504,8 +501,7 @@
             self.movableCornerTrigger = [[SNTrigger alloc] init];
             
             self.movableCornerTrigger.triggerSensores = [NSMutableDictionary dictionaryWithCapacity:5];
-            [self.movableCornerTrigger.triggerSensores setObject:[NSNumber numberWithInt:1]
-                                                          forKey:model.bid];
+            (self.movableCornerTrigger.triggerSensores)[model.bid] = @1;
             self.movableCornerTrigger.stayDistLimit = model.movableGoldCornerDist;
             self.movableCornerTrigger.stayTimeLimit = model.movableGoldCornerTimer;
             self.movableCornerTrigger.watcher = self;
@@ -513,8 +509,7 @@
             [[SensoroAnswer sharedInstance] addTrigger:self.movableCornerTrigger];
         }else{
             //向淘金角Trigger中添加新的
-            [self.movableCornerTrigger.triggerSensores setObject:[NSNumber numberWithInt:1]
-                                                          forKey:model.bid];
+            (self.movableCornerTrigger.triggerSensores)[model.bid] = @1;
         }
     }
     
@@ -524,14 +519,13 @@
             self.creditsTrigger = [NSMutableDictionary dictionaryWithCapacity:10];
         }
         
-        SNTrigger * trigger = [self.creditsTrigger objectForKey:model.sid];
+        SNTrigger * trigger = (self.creditsTrigger)[model.sid];
         if( trigger == nil)//没找到店铺相关的积分Trigger，添加一个新的。
         {
             trigger = [[SNTrigger alloc] init];
             
             trigger.triggerSensores = [NSMutableDictionary dictionaryWithCapacity:5];
-            [trigger.triggerSensores setObject:[NSNumber numberWithInt:1]
-                                                    forKey:model.bid];
+            (trigger.triggerSensores)[model.bid] = @1;
             trigger.stayDistLimit = model.creditsDist;
             trigger.stayTimeLimit = model.creditsTimer;
             trigger.watcher = self;
@@ -539,12 +533,11 @@
             
             //设定Trigger和店铺的对应。
             if (model.sid != nil) {
-                [self.creditsTrigger setObject:trigger forKey:model.sid];
+                (self.creditsTrigger)[model.sid] = trigger;
                 [[SensoroAnswer sharedInstance] addTrigger:trigger];
             }
         }else{//找到店铺相关的积分Trigger，向Trigger中添加一个新的传感器
-            [trigger.triggerSensores setObject:[NSNumber numberWithInt:1]
-                                               forKey:model.bid];
+            (trigger.triggerSensores)[model.bid] = @1;
         }
     }
     
@@ -554,14 +547,13 @@
             self.taskTrigger = [NSMutableDictionary dictionaryWithCapacity:10];
         }
         
-        SNTrigger * trigger = [self.taskTrigger objectForKey:model.sid];
+        SNTrigger * trigger = (self.taskTrigger)[model.sid];
         if( trigger == nil)//没找到店铺相关的积分Trigger，添加一个新的。
         {
             trigger = [[SNTrigger alloc] init];
             
             trigger.triggerSensores = [NSMutableDictionary dictionaryWithCapacity:5];
-            [trigger.triggerSensores setObject:[NSNumber numberWithInt:1]
-                                        forKey:model.bid];
+            (trigger.triggerSensores)[model.bid] = @1;
             trigger.stayDistLimit = model.taskDist;
             trigger.stayTimeLimit = model.taskTimer;
             trigger.watcher = self;
@@ -569,12 +561,11 @@
             
             //设定Trigger和店铺的对应。
             if (model.sid != nil) {
-                [self.taskTrigger setObject:trigger forKey:model.sid];
+                (self.taskTrigger)[model.sid] = trigger;
                 [[SensoroAnswer sharedInstance] addTrigger:trigger];
             }
         }else{//找到店铺相关的积分Trigger，向Trigger中添加一个新的传感器
-            [trigger.triggerSensores setObject:[NSNumber numberWithInt:1]
-                                        forKey:model.bid];
+            (trigger.triggerSensores)[model.bid] = @1;
         }
     }else{//查看所属店铺是否是寻宝店铺。
         
@@ -586,13 +577,12 @@
             self.goodsTrigger = [NSMutableDictionary dictionaryWithCapacity:10];
         }
         
-        SNTrigger * trigger = [self.goodsTrigger objectForKey:model.sid];
+        SNTrigger * trigger = (self.goodsTrigger)[model.sid];
         if (trigger == nil) {//没找到商品显示Trigger，新增一个
             trigger = [[SNTrigger alloc] init];
             
             trigger.triggerSensores = [NSMutableDictionary dictionaryWithCapacity:5];
-            [trigger.triggerSensores setObject:[NSNumber numberWithInt:1]
-                                                  forKey:model.bid];
+            (trigger.triggerSensores)[model.bid] = @1;
             trigger.stayDistLimit = model.goodsShowDist;
             trigger.stayTimeLimit = model.goodsShowTimer;
             trigger.watcher = self;
@@ -600,12 +590,11 @@
 
             if (model.sid != nil) {
                 //设定Trigger和店铺的对应。
-                [self.goodsTrigger setObject:trigger forKey:model.sid];
+                (self.goodsTrigger)[model.sid] = trigger;
                 [[SensoroAnswer sharedInstance] addTrigger:trigger];
             }
         }else{//找到了，在Trigger中添加新的传感器。
-            [trigger.triggerSensores setObject:[NSNumber numberWithInt:1]
-                                               forKey:model.bid];
+            (trigger.triggerSensores)[model.bid] = @1;
         }
     }
     
@@ -615,25 +604,23 @@
             self.verifyTrigger = [NSMutableDictionary dictionaryWithCapacity:10];
         }
     
-        SNTrigger * trigger = [self.verifyTrigger objectForKey:model.sid];
+        SNTrigger * trigger = (self.verifyTrigger)[model.sid];
         if (trigger == nil) {
             trigger = [[SNTrigger alloc] init];
             
             trigger.triggerSensores = [NSMutableDictionary dictionaryWithCapacity:1];
-            [trigger.triggerSensores setObject:[NSNumber numberWithInt:1]
-                                                   forKey:model.bid];
+            (trigger.triggerSensores)[model.bid] = @1;
             trigger.stayDistLimit = model.verfifyDist;
             trigger.stayTimeLimit = 0;
             trigger.watcher = self;
             
             if (model.sid != nil) {
                 //设定Trigger和店铺的对应。
-                [self.verifyTrigger setObject:trigger forKey:model.sid];
+                (self.verifyTrigger)[model.sid] = trigger;
                 [[SensoroAnswer sharedInstance] addTrigger:trigger];
             }
         }else{
-            [trigger.triggerSensores setObject:[NSNumber numberWithInt:1]
-                                        forKey:model.bid];
+            (trigger.triggerSensores)[model.bid] = @1;
         }
     }
 }

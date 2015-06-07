@@ -58,7 +58,7 @@ CGRect payTFFrame;
 CGRect CurCreditLbFrame;
 CGRect PayGuideLbFrame;
 double newscore;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -290,15 +290,15 @@ double newscore;
 {
     
     if(result!=NULL&&request == fetchCreditsRequest){
-        if ([result objectForKey:@"credits"]!=[NSNull null]) {
-            newscore = [[result objectForKey:@"credits"] doubleValue] ;
+        if (result[@"credits"]!=[NSNull null]) {
+            newscore = [result[@"credits"] doubleValue] ;
         }
         [self refreshCredits];
     }
     if (result!=NULL&&request == delCreditsRequest) {
         NSLog(@"%@",result);
-        if ([result objectForKey:@"credits"]!=[NSNull null]) {
-            newscore = [[result objectForKey:@"credits"] doubleValue] ;
+        if (result[@"credits"]!=[NSNull null]) {
+            newscore = [result[@"credits"] doubleValue] ;
         }
         [self refreshCredits];
         
@@ -328,7 +328,7 @@ double newscore;
             //根据获取的数据格式生成消息串，并添加进消息列表
             [[SNMessageManager sharedInstance] setUpCreditMsgs:array];
             //获取最后一条消息的时间戳，上拉加载时使用该时间戳获取该时间之前的消息
-            double lTimeStamp = [[[array lastObject] objectForKey:@"timestamp"] doubleValue];
+            double lTimeStamp = [[array lastObject][@"timestamp"] doubleValue];
             self.leastTimeStamp = [NSString stringWithFormat:@"%.0f",lTimeStamp - 1];
             _isBottom = NO;
         }
@@ -497,7 +497,7 @@ double newscore;
         
         NSUInteger row = [indexPath row];
         //显示message信息
-        SNMessage * message = [[SNMessageManager sharedInstance].allMessage objectAtIndex:row];
+        SNMessage * message = ([SNMessageManager sharedInstance].allMessage)[row];
         int index = (int)[indexPath row];
         [cell setupCell:message AtIndex:index];
 //        if ([SNMessageManager sharedInstance].allMessage.count==1) {
@@ -529,7 +529,7 @@ double newscore;
     if (indexPath.row >= [[SNMessageManager sharedInstance].allMessage count]) {
         return;
     }
-    SNMessage * message = [[SNMessageManager sharedInstance].allMessage objectAtIndex:indexPath.row];
+    SNMessage * message = ([SNMessageManager sharedInstance].allMessage)[indexPath.row];
 //    if ([message.type isEqualToString:@"credits"]) {
 //        [self performSegueWithIdentifier:@"showPersonInfo" sender:self];
 //    }else if ([message.type isEqualToString:@"shop"]){

@@ -11,7 +11,7 @@
 @implementation CollectionCell
 @synthesize ShopLogo;
 @synthesize ShopName;
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -20,7 +20,7 @@
     }
     return self;
 }
-- (id)initWithCoder:(NSCoder *)aDecoder{
+- (instancetype)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if (self) {
         ShopLogo.placeholderImage=[UIImage imageNamed:@"WDapp-icon_0000s_0000_logo2"];

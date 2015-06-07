@@ -16,7 +16,7 @@
     return [[Status alloc] initWithJsonDictionary:dic];
 }
 
-- (id)initWithJsonDictionary:(NSDictionary*)dic
+- (instancetype)initWithJsonDictionary:(NSDictionary*)dic
 {
 	self = [super init];
     if (self) {
@@ -113,16 +113,16 @@
 {
     [encoder encodeObject:self.statusIdString forKey:@"statusIdString"];
     [encoder encodeInt:self.createdAt forKey:@"createdAt"];
-    [encoder encodeObject:[NSNumber numberWithLongLong:self.statusId] forKey:@"statusId"];
+    [encoder encodeObject:@(self.statusId) forKey:@"statusId"];
     [encoder encodeObject:self.text forKey:@"text"];
     [encoder encodeObject:self.source forKey:@"source"];
     [encoder encodeObject:self.sourceUrl forKey:@"sourceUrl"];
     [encoder encodeBool:self.favorited forKey:@"favorited"];
     [encoder encodeBool:self.truncated forKey:@"truncated"];
-    [encoder encodeObject:[NSNumber numberWithLongLong:self.inReplyToStatusId] forKey:@"inReplyToStatusId"];
-    [encoder encodeObject:[NSNumber numberWithLongLong:self.inReplyToUserId] forKey:@"inReplyToUserId"];
+    [encoder encodeObject:@(self.inReplyToStatusId) forKey:@"inReplyToStatusId"];
+    [encoder encodeObject:@(self.inReplyToUserId) forKey:@"inReplyToUserId"];
     [encoder encodeObject:self.inReplyToScreenName forKey:@"inReplyToScreenName"];
-    [encoder encodeObject:[NSNumber numberWithLongLong:self.mid] forKey:@"mid"];
+    [encoder encodeObject:@(self.mid) forKey:@"mid"];
     [encoder encodeObject:self.images forKey:@"images"];
     [encoder encodeInt:self.repostsCount forKey:@"repostsCount"];
     [encoder encodeInt:self.commentsCount forKey:@"commentsCount"];
@@ -132,7 +132,7 @@
     [encoder encodeObject:self.retweetedStatus forKey:@"retweetedStatus"];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder
+- (instancetype)initWithCoder:(NSCoder *)decoder
 {
     self = [super init];
     if (self) {
@@ -162,7 +162,7 @@
 
 - (NSNumber *)statusKey {
     if (!_statusKey) {
-        _statusKey = [[NSNumber alloc]initWithLongLong:self.statusId];
+        _statusKey = @(self.statusId);
     }
     return _statusKey;
 }

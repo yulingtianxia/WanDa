@@ -32,7 +32,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum {
+typedef NS_ENUM(int, sbjson_token_t) {
     sbjson_token_error = -1,
     sbjson_token_eof,
     
@@ -51,7 +51,7 @@ typedef enum {
     sbjson_token_false,
     sbjson_token_null,
     
-} sbjson_token_t;
+};
 
 @class SBJsonUTF8Stream;
 

@@ -34,7 +34,7 @@
 
 @synthesize data;
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         data = [[NSMutableData alloc] initWithCapacity:8096u];

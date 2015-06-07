@@ -38,7 +38,7 @@
 + (instancetype)globalCache;
 
 // Opitionally create a different EGOCache instance with it's own cache directory
-- (id)initWithCacheDirectory:(NSString*)cacheDirectory;
+- (instancetype)initWithCacheDirectory:(NSString*)cacheDirectory NS_DESIGNATED_INITIALIZER;
 
 - (void)clearCache;
 - (void)removeCacheForKey:(NSString*)key;
@@ -54,7 +54,7 @@
 - (void)setString:(NSString*)aString forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;
 
 - (NSDate*)dateForKey:(NSString*)key;
-- (NSArray*)allKeys;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *allKeys;
 
 #if TARGET_OS_IPHONE
 - (UIImage*)imageForKey:(NSString*)key;
